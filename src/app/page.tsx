@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import {
   Menu,
@@ -16,10 +16,40 @@ import {
   CheckCircle2,
   Calendar,
   ChevronRight,
+  Send,
+  Loader2,
 } from "lucide-react";
+
+// 목데이터
+const mockDeals = {
+  피칭: [
+    { name: "삼성전자", desc: "갤럭시 Z폴드6 협찬" },
+    { name: "쿠팡", desc: "쿠팡플레이 광고" },
+    { name: "네이버", desc: "스마트스토어 홍보" },
+  ],
+  "협상 중": [
+    { name: "LG전자", desc: "스탠바이미 리뷰" },
+    { name: "배달의민족", desc: "앱 광고 캠페인" },
+  ],
+  계약: [
+    { name: "카카오", desc: "카카오톡 이모티콘" },
+    { name: "토스", desc: "토스뱅크 체험기" },
+  ],
+  "제작 중": [
+    { name: "현대자동차", desc: "아이오닉6 시승기" },
+  ],
+  게시: [
+    { name: "애플코리아", desc: "맥북프로 언박싱" },
+  ],
+  결제: [],
+};
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [helpModalOpen, setHelpModalOpen] = useState(false);
+  const [helpForm, setHelpForm] = useState({ name: "", email: "", message: "" });
+  const [helpLoading, setHelpLoading] = useState(false);
+  const [helpSuccess, setHelpSuccess] = useState(false);
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -30,7 +60,7 @@ export default function Home() {
       </div>
 
       {/* Navigation */}
-      <nav className="relative z-50 border-b border-white/5">
+      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-black/80 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
@@ -50,7 +80,7 @@ export default function Home() {
                 <a
                   key={item.href}
                   href={item.href}
-                  className="px-4 py-2 text-sm text-zinc-400 hover:text-white transition-colors"
+                  className="px-4 py-2 text-sm text-zinc-400 hover:text-white transition-colors cursor-pointer"
                 >
                   {item.label}
                 </a>
@@ -61,13 +91,13 @@ export default function Home() {
             <div className="hidden md:flex items-center gap-4">
               <Link
                 href="/login"
-                className="text-sm text-zinc-400 hover:text-white transition-colors"
+                className="text-sm text-zinc-400 hover:text-white transition-colors cursor-pointer"
               >
                 Log In
               </Link>
               <Link
                 href="/signup"
-                className="px-4 py-2 text-sm font-medium bg-white text-black rounded-lg hover:bg-zinc-200 transition-colors"
+                className="px-4 py-2 text-sm font-medium bg-white text-black rounded-lg hover:bg-zinc-200 transition-colors cursor-pointer"
               >
                 Get Started
               </Link>
@@ -115,7 +145,7 @@ export default function Home() {
       </nav>
 
       {/* Hero Section - Left aligned */}
-      <section className="relative pt-32 pb-24 px-6">
+      <section className="relative pt-40 pb-24 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-3xl">
             {/* Headline */}
@@ -150,17 +180,17 @@ export default function Home() {
               className="flex flex-wrap gap-4"
             >
               <Link href="/signup">
-                <button className="group px-6 py-3 text-sm font-medium bg-white text-black rounded-lg hover:bg-zinc-200 transition-all flex items-center gap-2">
+                <button className="group px-6 py-3 text-sm font-medium bg-white text-black rounded-lg hover:bg-zinc-200 transition-all flex items-center gap-2 cursor-pointer">
                   Get Started
                   <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                 </button>
               </Link>
-              <Link href="#features">
-                <button className="px-6 py-3 text-sm text-zinc-400 hover:text-white transition-colors flex items-center gap-2">
+              <a href="#features">
+                <button className="px-6 py-3 text-sm text-zinc-400 hover:text-white transition-colors flex items-center gap-2 cursor-pointer">
                   기능 살펴보기
                   <ChevronRight className="w-4 h-4" />
                 </button>
-              </Link>
+              </a>
             </motion.div>
           </div>
         </div>
@@ -218,12 +248,12 @@ export default function Home() {
                   {/* Kanban preview */}
                   <div className="grid grid-cols-6 gap-3">
                     {[
-                      { name: "피칭", color: "#71717a", count: 3 },
-                      { name: "협상 중", color: "#f59e0b", count: 2 },
-                      { name: "계약", color: "#3b82f6", count: 2 },
-                      { name: "제작 중", color: "#8b5cf6", count: 1 },
-                      { name: "게시", color: "#10b981", count: 1 },
-                      { name: "결제", color: "#06b6d4", count: 0 },
+                      { name: "피칭", color: "#71717a" },
+                      { name: "협상 중", color: "#f59e0b" },
+                      { name: "계약", color: "#3b82f6" },
+                      { name: "제작 중", color: "#8b5cf6" },
+                      { name: "게시", color: "#10b981" },
+                      { name: "결제", color: "#06b6d4" },
                     ].map((col) => (
                       <div key={col.name}>
                         <div className="flex items-center gap-2 px-2 py-2 mb-2">
@@ -231,10 +261,10 @@ export default function Home() {
                           <span className="text-xs font-medium text-zinc-400">{col.name}</span>
                         </div>
                         <div className="space-y-2 min-h-[80px]">
-                          {[...Array(col.count)].map((_, j) => (
+                          {mockDeals[col.name as keyof typeof mockDeals]?.map((deal, j) => (
                             <div key={j} className="bg-zinc-900 rounded-lg p-3 border border-white/5">
-                              <div className="h-2 bg-zinc-800 rounded w-4/5 mb-2" />
-                              <div className="h-1.5 bg-zinc-800/50 rounded w-3/5" />
+                              <p className="text-xs font-medium text-white mb-1">{deal.name}</p>
+                              <p className="text-[10px] text-zinc-500 truncate">{deal.desc}</p>
                             </div>
                           ))}
                         </div>
@@ -266,7 +296,7 @@ export default function Home() {
                 드래그 앤 드롭으로 딜 상태를 직관적으로 관리하세요.
                 피칭부터 결제까지 모든 단계를 시각화합니다.
               </p>
-              <Link href="/signup" className="text-cyan-400 hover:text-cyan-300 flex items-center gap-2 text-sm font-medium">
+              <Link href="/signup" className="text-cyan-400 hover:text-cyan-300 flex items-center gap-2 text-sm font-medium cursor-pointer">
                 시작하기 <ChevronRight className="w-4 h-4" />
               </Link>
             </motion.div>
@@ -280,9 +310,9 @@ export default function Home() {
               {/* Mini kanban */}
               <div className="grid grid-cols-3 gap-3">
                 {[
-                  { name: "협상 중", color: "#f59e0b", count: 2 },
-                  { name: "계약", color: "#3b82f6", count: 2 },
-                  { name: "제작 중", color: "#8b5cf6", count: 1 },
+                  { name: "협상 중", color: "#f59e0b" },
+                  { name: "계약", color: "#3b82f6" },
+                  { name: "제작 중", color: "#8b5cf6" },
                 ].map((col) => (
                   <div key={col.name}>
                     <div className="flex items-center gap-2 px-2 py-2 mb-2">
@@ -290,10 +320,10 @@ export default function Home() {
                       <span className="text-xs font-medium text-zinc-400">{col.name}</span>
                     </div>
                     <div className="space-y-2">
-                      {[...Array(col.count)].map((_, j) => (
+                      {mockDeals[col.name as keyof typeof mockDeals]?.map((deal, j) => (
                         <div key={j} className="bg-zinc-800 rounded-lg p-3 border border-white/5">
-                          <div className="h-2 bg-zinc-700 rounded w-4/5 mb-2" />
-                          <div className="h-1.5 bg-zinc-700/50 rounded w-3/5" />
+                          <p className="text-xs font-medium text-white mb-1">{deal.name}</p>
+                          <p className="text-[10px] text-zinc-500 truncate">{deal.desc}</p>
                         </div>
                       ))}
                     </div>
@@ -418,23 +448,25 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="p-8 rounded-xl border border-white/5 bg-zinc-950"
+              className="p-8 rounded-xl border border-white/5 bg-zinc-950 flex flex-col"
             >
-              <h3 className="text-xl font-semibold text-white mb-2">Free</h3>
-              <p className="text-sm text-zinc-500 mb-6">개인 크리에이터에게 적합</p>
-              <div className="text-4xl font-bold text-white mb-8">
-                ₩0<span className="text-base font-normal text-zinc-500">/월</span>
+              <div className="flex-1">
+                <h3 className="text-xl font-semibold text-white mb-2">Free</h3>
+                <p className="text-sm text-zinc-500 mb-6">개인 크리에이터에게 적합</p>
+                <div className="text-4xl font-bold text-white mb-8">
+                  ₩0<span className="text-base font-normal text-zinc-500">/월</span>
+                </div>
+                <ul className="space-y-3">
+                  {["딜 10개까지", "브랜드 5개까지", "칸반 보드", "기본 분석"].map((f) => (
+                    <li key={f} className="flex items-center gap-3 text-sm text-zinc-300">
+                      <CheckCircle2 className="w-4 h-4 text-zinc-500" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul className="space-y-3 mb-8">
-                {["딜 10개까지", "브랜드 5개까지", "칸반 보드", "기본 분석"].map((f) => (
-                  <li key={f} className="flex items-center gap-3 text-sm text-zinc-300">
-                    <CheckCircle2 className="w-4 h-4 text-zinc-500" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <Link href="/signup">
-                <button className="w-full py-3 text-sm font-medium border border-white/10 rounded-lg hover:bg-white/5 transition-colors">
+              <Link href="/signup" className="mt-8">
+                <button className="w-full py-3 text-sm font-medium border border-white/10 rounded-lg hover:bg-white/5 transition-colors cursor-pointer">
                   무료로 시작
                 </button>
               </Link>
@@ -446,26 +478,28 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="relative p-8 rounded-xl border-2 border-cyan-500/30 bg-gradient-to-b from-cyan-500/5 to-transparent"
+              className="relative p-8 rounded-xl border-2 border-cyan-500/30 bg-gradient-to-b from-cyan-500/5 to-transparent flex flex-col"
             >
               <div className="absolute -top-3 left-6 px-3 py-1 bg-cyan-500 rounded-full text-xs font-medium text-black">
                 추천
               </div>
-              <h3 className="text-xl font-semibold text-white mb-2">Pro</h3>
-              <p className="text-sm text-zinc-500 mb-6">본격적인 크리에이터를 위해</p>
-              <div className="text-4xl font-bold text-white mb-8">
-                ₩9,900<span className="text-base font-normal text-zinc-500">/월</span>
+              <div className="flex-1">
+                <h3 className="text-xl font-semibold text-white mb-2">Pro</h3>
+                <p className="text-sm text-zinc-500 mb-6">본격적인 크리에이터를 위해</p>
+                <div className="text-4xl font-bold text-white mb-8">
+                  ₩9,900<span className="text-base font-normal text-zinc-500">/월</span>
+                </div>
+                <ul className="space-y-3">
+                  {["딜 무제한", "브랜드 무제한", "마감일 이메일 알림", "상세 수익 분석", "데이터 내보내기", "우선 지원"].map((f) => (
+                    <li key={f} className="flex items-center gap-3 text-sm text-zinc-300">
+                      <CheckCircle2 className="w-4 h-4 text-cyan-400" />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul className="space-y-3 mb-8">
-                {["딜 무제한", "브랜드 무제한", "마감일 이메일 알림", "상세 수익 분석", "데이터 내보내기", "우선 지원"].map((f) => (
-                  <li key={f} className="flex items-center gap-3 text-sm text-zinc-300">
-                    <CheckCircle2 className="w-4 h-4 text-cyan-400" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <Link href="/signup">
-                <button className="w-full py-3 text-sm font-medium bg-white text-black rounded-lg hover:bg-zinc-200 transition-colors">
+              <Link href="/signup" className="mt-8">
+                <button className="w-full py-3 text-sm font-medium bg-white text-black rounded-lg hover:bg-zinc-200 transition-colors cursor-pointer">
                   Pro 시작하기
                 </button>
               </Link>
@@ -496,17 +530,18 @@ export default function Home() {
             className="flex justify-center gap-4 mt-8"
           >
             <Link href="/signup">
-              <button className="group px-6 py-3 text-sm font-medium bg-white text-black rounded-lg hover:bg-zinc-200 transition-all flex items-center gap-2">
+              <button className="group px-6 py-3 text-sm font-medium bg-white text-black rounded-lg hover:bg-zinc-200 transition-all flex items-center gap-2 cursor-pointer">
                 Get Started
                 <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </button>
             </Link>
-            <a href="mailto:support@sponsortracker.app">
-              <button className="px-6 py-3 text-sm text-zinc-400 hover:text-white transition-colors flex items-center gap-2">
-                Contact Us
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </a>
+            <button
+              onClick={() => setHelpModalOpen(true)}
+              className="px-6 py-3 text-sm text-zinc-400 hover:text-white transition-colors flex items-center gap-2 cursor-pointer"
+            >
+              Contact Us
+              <ChevronRight className="w-4 h-4" />
+            </button>
           </motion.div>
         </div>
       </section>
@@ -539,24 +574,31 @@ export default function Home() {
             <div>
               <h4 className="text-sm font-medium text-white mb-4">Product</h4>
               <ul className="space-y-2 text-sm text-zinc-500">
-                <li><a href="#features" className="hover:text-white transition-colors">기능</a></li>
-                <li><a href="#pricing" className="hover:text-white transition-colors">요금제</a></li>
+                <li><a href="#features" className="hover:text-white transition-colors cursor-pointer">기능</a></li>
+                <li><a href="#pricing" className="hover:text-white transition-colors cursor-pointer">요금제</a></li>
               </ul>
             </div>
 
             <div>
               <h4 className="text-sm font-medium text-white mb-4">Legal</h4>
               <ul className="space-y-2 text-sm text-zinc-500">
-                <li><Link href="/privacy" className="hover:text-white transition-colors">개인정보처리방침</Link></li>
-                <li><Link href="/terms" className="hover:text-white transition-colors">이용약관</Link></li>
-                <li><Link href="/refund" className="hover:text-white transition-colors">환불정책</Link></li>
+                <li><Link href="/privacy" className="hover:text-white transition-colors cursor-pointer">개인정보처리방침</Link></li>
+                <li><Link href="/terms" className="hover:text-white transition-colors cursor-pointer">이용약관</Link></li>
+                <li><Link href="/refund" className="hover:text-white transition-colors cursor-pointer">환불정책</Link></li>
               </ul>
             </div>
 
             <div>
               <h4 className="text-sm font-medium text-white mb-4">Help</h4>
               <ul className="space-y-2 text-sm text-zinc-500">
-                <li><a href="mailto:support@sponsortracker.app" className="hover:text-white transition-colors">문의하기</a></li>
+                <li>
+                  <button
+                    onClick={() => setHelpModalOpen(true)}
+                    className="hover:text-white transition-colors cursor-pointer"
+                  >
+                    문의하기
+                  </button>
+                </li>
               </ul>
             </div>
           </div>
@@ -566,6 +608,133 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Help Modal */}
+      <AnimatePresence>
+        {helpModalOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => {
+                setHelpModalOpen(false);
+                setHelpSuccess(false);
+                setHelpForm({ name: "", email: "", message: "" });
+              }}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+            />
+            {/* Modal */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md"
+            >
+              <div className="bg-zinc-900 border border-white/10 rounded-2xl p-6 shadow-2xl">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-lg font-semibold text-white">문의하기</h3>
+                  <button
+                    onClick={() => {
+                      setHelpModalOpen(false);
+                      setHelpSuccess(false);
+                      setHelpForm({ name: "", email: "", message: "" });
+                    }}
+                    className="text-zinc-400 hover:text-white transition-colors cursor-pointer"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+
+                {helpSuccess ? (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-center py-8"
+                  >
+                    <div className="w-16 h-16 rounded-full bg-cyan-500/20 flex items-center justify-center mx-auto mb-4">
+                      <CheckCircle2 className="w-8 h-8 text-cyan-400" />
+                    </div>
+                    <h4 className="text-white font-medium mb-2">메시지가 전송되었습니다</h4>
+                    <p className="text-sm text-zinc-400">빠른 시일 내에 답변 드리겠습니다.</p>
+                  </motion.div>
+                ) : (
+                  <form
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      setHelpLoading(true);
+                      try {
+                        const res = await fetch("/api/contact", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify(helpForm),
+                        });
+                        if (res.ok) {
+                          setHelpSuccess(true);
+                        }
+                      } catch (err) {
+                        console.error(err);
+                      } finally {
+                        setHelpLoading(false);
+                      }
+                    }}
+                    className="space-y-4"
+                  >
+                    <div>
+                      <label className="block text-sm text-zinc-400 mb-2">이름</label>
+                      <input
+                        type="text"
+                        required
+                        value={helpForm.name}
+                        onChange={(e) => setHelpForm({ ...helpForm, name: e.target.value })}
+                        className="w-full px-4 py-3 bg-zinc-800 border border-white/5 rounded-lg text-white placeholder:text-zinc-600 focus:outline-none focus:border-cyan-500/50 transition-colors"
+                        placeholder="홍길동"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm text-zinc-400 mb-2">이메일</label>
+                      <input
+                        type="email"
+                        required
+                        value={helpForm.email}
+                        onChange={(e) => setHelpForm({ ...helpForm, email: e.target.value })}
+                        className="w-full px-4 py-3 bg-zinc-800 border border-white/5 rounded-lg text-white placeholder:text-zinc-600 focus:outline-none focus:border-cyan-500/50 transition-colors"
+                        placeholder="you@example.com"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm text-zinc-400 mb-2">메시지</label>
+                      <textarea
+                        required
+                        rows={4}
+                        value={helpForm.message}
+                        onChange={(e) => setHelpForm({ ...helpForm, message: e.target.value })}
+                        className="w-full px-4 py-3 bg-zinc-800 border border-white/5 rounded-lg text-white placeholder:text-zinc-600 focus:outline-none focus:border-cyan-500/50 transition-colors resize-none"
+                        placeholder="문의 내용을 입력하세요..."
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      disabled={helpLoading}
+                      className="w-full py-3 bg-white text-black font-medium rounded-lg hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {helpLoading ? (
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                      ) : (
+                        <>
+                          <Send className="w-4 h-4" />
+                          보내기
+                        </>
+                      )}
+                    </button>
+                  </form>
+                )}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

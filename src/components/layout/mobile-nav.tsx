@@ -129,27 +129,27 @@ export function MobileNav() {
               key={item.href}
               href={item.href}
               className={cn(
-                "flex flex-col items-center justify-center gap-1 px-3 py-2 rounded-xl transition-all duration-200 min-w-[60px]",
+                "flex flex-col items-center justify-center gap-1 px-3 py-2 rounded-xl transition-all duration-200 min-w-[60px] cursor-pointer",
                 isActive
-                  ? "text-violet-400"
+                  ? "text-cyan-400"
                   : "text-muted-foreground active:scale-95"
               )}
             >
               <div
                 className={cn(
                   "relative p-1.5 rounded-lg transition-all duration-200",
-                  isActive && "bg-violet-500/15"
+                  isActive && "bg-cyan-500/15"
                 )}
               >
                 {item.icon}
                 {isActive && (
-                  <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-violet-400" />
+                  <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-cyan-400" />
                 )}
               </div>
               <span
                 className={cn(
                   "text-[10px] font-medium transition-all duration-200",
-                  isActive ? "text-violet-400" : "text-muted-foreground/80"
+                  isActive ? "text-cyan-400" : "text-muted-foreground/80"
                 )}
               >
                 {item.title}

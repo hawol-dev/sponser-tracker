@@ -23,7 +23,7 @@ export default async function DashboardLayout({
   return (
     <SidebarProvider>
       <AppSidebar user={user} />
-      <main className="flex-1 overflow-auto bg-gradient-to-br from-background via-background to-violet-950/5">
+      <main className="flex-1 overflow-auto bg-gradient-to-br from-background via-background to-cyan-950/5">
         <header className="sticky top-0 z-10 flex h-14 items-center justify-between border-b border-white/[0.08] bg-background/80 backdrop-blur-xl px-4 md:flex">
           <SidebarTrigger className="text-muted-foreground hover:text-foreground transition-colors" />
           <ThemeToggle />

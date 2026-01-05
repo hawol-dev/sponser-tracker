@@ -159,11 +159,11 @@ export function AppSidebar({ user }: AppSidebarProps) {
   return (
     <Sidebar className="border-r border-white/[0.08] bg-[#0a0a0c]/95 backdrop-blur-xl">
       <SidebarHeader className="border-b border-white/[0.08] px-6 py-5">
-        <Link href="/dashboard" className="flex items-center gap-3 group">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 text-white font-bold shadow-lg shadow-violet-500/25 group-hover:shadow-violet-500/40 transition-all duration-200">
+        <Link href="/dashboard" className="flex items-center gap-3 group cursor-pointer">
+          <div className="w-9 h-9 rounded-lg bg-white flex items-center justify-center text-black font-bold">
             S
           </div>
-          <span className="font-semibold text-lg bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
+          <span className="font-medium text-lg text-white">
             Sponsor Tracker
           </span>
         </Link>
@@ -184,18 +184,18 @@ export function AppSidebar({ user }: AppSidebarProps) {
                       asChild
                       isActive={isActive}
                       className={`
-                        relative rounded-lg transition-all duration-200 py-2.5
+                        relative rounded-lg transition-all duration-200 py-2.5 cursor-pointer
                         ${isActive
-                          ? "bg-violet-500/15 text-violet-300 shadow-sm shadow-violet-500/10"
+                          ? "bg-cyan-500/15 text-cyan-300 shadow-sm shadow-cyan-500/10"
                           : "text-muted-foreground hover:bg-white/[0.05] hover:text-foreground"
                         }
                       `}
                     >
                       <Link href={item.url} className="flex items-center gap-3">
-                        <span className={isActive ? "text-violet-400" : ""}>{item.icon}</span>
+                        <span className={isActive ? "text-cyan-400" : ""}>{item.icon}</span>
                         <span className="font-medium">{item.title}</span>
                         {isActive && (
-                          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-gradient-to-b from-violet-500 to-indigo-500 rounded-r-full" />
+                          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-gradient-to-b from-cyan-500 to-cyan-400 rounded-r-full" />
                         )}
                       </Link>
                     </SidebarMenuButton>
@@ -210,10 +210,10 @@ export function AppSidebar({ user }: AppSidebarProps) {
       <SidebarFooter className="border-t border-white/[0.08] p-4">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="flex w-full items-center gap-3 rounded-xl p-2.5 hover:bg-white/[0.05] transition-all duration-200 group">
-              <Avatar className="h-9 w-9 ring-2 ring-violet-500/20 group-hover:ring-violet-500/40 transition-all duration-200">
+            <button className="flex w-full items-center gap-3 rounded-xl p-2.5 hover:bg-white/[0.05] transition-all duration-200 group cursor-pointer">
+              <Avatar className="h-9 w-9 ring-2 ring-cyan-500/20 group-hover:ring-cyan-500/40 transition-all duration-200">
                 <AvatarImage src={user?.user_metadata?.avatar_url} />
-                <AvatarFallback className="bg-gradient-to-br from-violet-600 to-indigo-600 text-white text-sm font-medium">
+                <AvatarFallback className="bg-gradient-to-br from-cyan-600 to-cyan-500 text-white text-sm font-medium">
                   {userInitials}
                 </AvatarFallback>
               </Avatar>

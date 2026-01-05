@@ -40,7 +40,7 @@ export function MobileFAB() {
           <path d="m15 9 6-6" />
         </svg>
       ),
-      color: "from-violet-500 to-indigo-500",
+      color: "from-cyan-500 to-cyan-400",
     },
     {
       label: "새 브랜드",
@@ -62,7 +62,7 @@ export function MobileFAB() {
           <path d="M12 3v6" />
         </svg>
       ),
-      color: "from-blue-500 to-cyan-500",
+      color: "from-cyan-600 to-cyan-500",
     },
   ];
 
@@ -103,8 +103,8 @@ export function MobileFAB() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "w-14 h-14 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 shadow-lg shadow-violet-500/30 flex items-center justify-center text-white transition-all duration-300 active:scale-95",
-          isOpen && "rotate-45 shadow-violet-500/50"
+          "w-14 h-14 rounded-full bg-gradient-to-r from-cyan-600 to-cyan-500 shadow-lg shadow-cyan-500/30 flex items-center justify-center text-white transition-all duration-300 active:scale-95 cursor-pointer",
+          isOpen && "rotate-45 shadow-cyan-500/50"
         )}
         aria-label={isOpen ? "Close menu" : "Add new"}
       >

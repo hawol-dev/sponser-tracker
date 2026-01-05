@@ -59,37 +59,39 @@ export default function SignupPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#09090b] px-4 relative">
+      <div className="min-h-screen flex items-center justify-center bg-black px-4 relative">
         {/* 배경 그라디언트 */}
-        <div className="fixed inset-0 bg-gradient-to-br from-violet-950/20 via-transparent to-indigo-950/20 pointer-events-none" />
-        <div className="fixed top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-violet-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="fixed inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-bl from-cyan-500/10 via-transparent to-transparent blur-3xl" />
+          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-cyan-500/5 via-transparent to-transparent blur-3xl" />
+        </div>
 
         <div className="relative z-10 w-full max-w-md">
           {/* 로고 */}
-          <Link href="/" className="flex items-center justify-center gap-2 mb-8 group">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 text-white font-bold shadow-lg shadow-violet-500/25">
+          <Link href="/" className="flex items-center justify-center gap-2.5 mb-8 group cursor-pointer">
+            <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center text-black font-bold">
               S
             </div>
-            <span className="font-semibold text-xl text-white">Sponsor Tracker</span>
+            <span className="font-medium text-xl text-white">Sponsor Tracker</span>
           </Link>
 
-          <Card className="border-white/[0.08] bg-white/[0.03] backdrop-blur-xl">
+          <Card className="border-white/10 bg-zinc-900/80 backdrop-blur-xl">
             <CardHeader className="text-center">
-              <div className="w-16 h-16 bg-emerald-500/15 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-400">
+              <div className="w-16 h-16 bg-cyan-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-cyan-400">
                   <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
                   <polyline points="22 4 12 14.01 9 11.01"/>
                 </svg>
               </div>
               <CardTitle className="text-2xl font-bold text-white">이메일을 확인해주세요</CardTitle>
-              <CardDescription className="text-white/60">
+              <CardDescription className="text-zinc-400">
                 {email}로 인증 링크를 보냈습니다.<br />
                 이메일을 확인하고 링크를 클릭해주세요.
               </CardDescription>
             </CardHeader>
             <CardContent>
               <Link href="/login">
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full cursor-pointer">
                   로그인 페이지로 돌아가기
                 </Button>
               </Link>
@@ -101,24 +103,26 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#09090b] px-4 relative">
+    <div className="min-h-screen flex items-center justify-center bg-black px-4 relative">
       {/* 배경 그라디언트 */}
-      <div className="fixed inset-0 bg-gradient-to-br from-violet-950/20 via-transparent to-indigo-950/20 pointer-events-none" />
-      <div className="fixed top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-violet-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-bl from-cyan-500/10 via-transparent to-transparent blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-cyan-500/5 via-transparent to-transparent blur-3xl" />
+      </div>
 
       <div className="relative z-10 w-full max-w-md">
         {/* 로고 */}
-        <Link href="/" className="flex items-center justify-center gap-2 mb-8 group">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 text-white font-bold shadow-lg shadow-violet-500/25 group-hover:shadow-violet-500/40 transition-all duration-200">
+        <Link href="/" className="flex items-center justify-center gap-2.5 mb-8 group cursor-pointer">
+          <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center text-black font-bold">
             S
           </div>
-          <span className="font-semibold text-xl text-white">Sponsor Tracker</span>
+          <span className="font-medium text-xl text-white">Sponsor Tracker</span>
         </Link>
 
-        <Card className="border-white/[0.08] bg-white/[0.03] backdrop-blur-xl">
+        <Card className="border-white/10 bg-zinc-900/80 backdrop-blur-xl">
           <CardHeader className="text-center">
             <CardTitle className="text-2xl font-bold text-white">회원가입</CardTitle>
-            <CardDescription className="text-white/60">
+            <CardDescription className="text-zinc-400">
               스폰서십을 체계적으로 관리하세요
             </CardDescription>
           </CardHeader>
@@ -153,17 +157,17 @@ export default function SignupPage() {
 
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-white/[0.08]" />
+                <span className="w-full border-t border-white/10" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-[#0a0a0c] px-2 text-white/40">또는</span>
+                <span className="bg-zinc-900 px-2 text-zinc-500">또는</span>
               </div>
             </div>
 
             {/* 이메일 회원가입 폼 */}
             <form onSubmit={handleEmailSignup} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="name" className="text-white/80">이름</Label>
+                <Label htmlFor="name" className="text-zinc-400">이름</Label>
                 <Input
                   id="name"
                   type="text"
@@ -171,11 +175,11 @@ export default function SignupPage() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
-                  className="bg-white/[0.05] border-white/[0.1] text-white placeholder:text-white/30 focus:border-violet-500/50"
+                  className="bg-zinc-800 border-white/5 text-white placeholder:text-zinc-600 focus:border-cyan-500/50"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-white/80">이메일</Label>
+                <Label htmlFor="email" className="text-zinc-400">이메일</Label>
                 <Input
                   id="email"
                   type="email"
@@ -183,11 +187,11 @@ export default function SignupPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="bg-white/[0.05] border-white/[0.1] text-white placeholder:text-white/30 focus:border-violet-500/50"
+                  className="bg-zinc-800 border-white/5 text-white placeholder:text-zinc-600 focus:border-cyan-500/50"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-white/80">비밀번호</Label>
+                <Label htmlFor="password" className="text-zinc-400">비밀번호</Label>
                 <Input
                   id="password"
                   type="password"
@@ -196,9 +200,9 @@ export default function SignupPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   minLength={6}
                   required
-                  className="bg-white/[0.05] border-white/[0.1] text-white placeholder:text-white/30 focus:border-violet-500/50"
+                  className="bg-zinc-800 border-white/5 text-white placeholder:text-zinc-600 focus:border-cyan-500/50"
                 />
-                <p className="text-xs text-white/40">최소 6자 이상</p>
+                <p className="text-xs text-zinc-500">최소 6자 이상</p>
               </div>
 
               {error && (
@@ -212,9 +216,9 @@ export default function SignupPage() {
               </Button>
             </form>
 
-            <div className="text-center text-sm text-white/40">
+            <div className="text-center text-sm text-zinc-500">
               이미 계정이 있으신가요?{" "}
-              <Link href="/login" className="text-violet-400 hover:text-violet-300 transition-colors">
+              <Link href="/login" className="text-cyan-400 hover:text-cyan-300 transition-colors cursor-pointer">
                 로그인
               </Link>
             </div>
