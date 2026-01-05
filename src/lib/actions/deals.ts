@@ -18,30 +18,22 @@ export type DealFormData = {
   notes?: string;
 };
 
-export type DealSortBy = "amount" | "deadline" | "created_at" | "title";
-export type SortOrder = "asc" | "desc";
-
 // 딜 목록 조회
 export async function getDeals(options?: {
   status?: DealStatus;
   brandId?: string;
   search?: string;
-  sortBy?: DealSortBy;
-  sortOrder?: SortOrder;
 }) {
   const supabase = await createClient();
 
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) throw new Error("인증이 필요합니다");
 
-  const sortBy = options?.sortBy || "created_at";
-  const ascending = options?.sortOrder === "asc";
-
   let query = supabase
     .from("deals")
     .select("*, brand:brands(*)")
     .eq("user_id", user.id)
-    .order(sortBy, { ascending });
+    .order("created_at", { ascending: false });
 
   if (options?.status) {
     query = query.eq("status", options.status);

@@ -13,41 +13,38 @@ import {
 import { Button } from "@/components/ui/button";
 import type { BrandCategory } from "@/types/database";
 import { CATEGORY_LABELS } from "@/types/database";
-import type { BrandSortBy, SortOrder } from "@/lib/actions/brands";
-import { Search, X, ArrowUpDown } from "lucide-react";
+import { Search, ArrowUpDown } from "lucide-react";
 
-const SORT_OPTIONS: { value: string; label: string }[] = [
+export type SortOption = "created_at-desc" | "created_at-asc" | "name-asc" | "name-desc";
+
+const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: "created_at-desc", label: "최근 추가순" },
   { value: "created_at-asc", label: "오래된순" },
-  { value: "name-asc", label: "이름 (A-Z)" },
-  { value: "name-desc", label: "이름 (Z-A)" },
-  { value: "category-asc", label: "카테고리순" },
+  { value: "name-asc", label: "이름순 (A-Z)" },
+  { value: "name-desc", label: "이름순 (Z-A)" },
 ];
 
 interface BrandFiltersProps {
   currentSearch?: string;
   currentCategory?: BrandCategory;
-  currentSortBy?: BrandSortBy;
-  currentSortOrder?: SortOrder;
+  sortValue: SortOption;
+  onSortChange: (value: SortOption) => void;
 }
 
 export function BrandFilters({
   currentSearch,
   currentCategory,
-  currentSortBy,
-  currentSortOrder,
+  sortValue,
+  onSortChange,
 }: BrandFiltersProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
   const [searchValue, setSearchValue] = useState(currentSearch || "");
 
-  // URL 파라미터가 변경되면 검색값 동기화
   useEffect(() => {
     setSearchValue(currentSearch || "");
   }, [currentSearch]);
-
-  const currentSort = `${currentSortBy || "created_at"}-${currentSortOrder || "desc"}`;
 
   const updateFilters = useCallback(
     (updates: Record<string, string | null>) => {
@@ -83,25 +80,6 @@ export function BrandFilters({
     [updateFilters]
   );
 
-  const handleSortChange = useCallback(
-    (value: string) => {
-      const [sortBy, sortOrder] = value.split("-") as [BrandSortBy, SortOrder];
-      updateFilters({ sortBy, sortOrder });
-    },
-    [updateFilters]
-  );
-
-  const clearFilters = useCallback(() => {
-    setSearchValue("");
-    startTransition(() => {
-      router.push("/brands");
-    });
-  }, [router]);
-
-  const hasFilters = currentSearch || currentCategory ||
-    (currentSortBy && currentSortBy !== "created_at") ||
-    (currentSortOrder && currentSortOrder !== "desc");
-
   return (
     <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
       <form onSubmit={handleSearch} className="flex gap-2 flex-1">
@@ -119,12 +97,12 @@ export function BrandFilters({
         </Button>
       </form>
 
-      <div className="flex flex-wrap gap-2 items-center">
+      <div className="flex gap-2 items-center">
         <Select
           value={currentCategory || "all"}
           onValueChange={handleCategoryChange}
         >
-          <SelectTrigger className="w-[160px]">
+          <SelectTrigger className="w-[140px]">
             <SelectValue placeholder="카테고리" />
           </SelectTrigger>
           <SelectContent position="popper" sideOffset={4}>
@@ -137,10 +115,10 @@ export function BrandFilters({
           </SelectContent>
         </Select>
 
-        <Select value={currentSort} onValueChange={handleSortChange}>
-          <SelectTrigger className="w-[150px]">
-            <ArrowUpDown className="h-4 w-4 mr-2" />
-            <SelectValue placeholder="정렬" />
+        <Select value={sortValue} onValueChange={(v) => onSortChange(v as SortOption)}>
+          <SelectTrigger className="w-[145px]">
+            <ArrowUpDown className="h-4 w-4 mr-2 shrink-0" />
+            <SelectValue />
           </SelectTrigger>
           <SelectContent position="popper" sideOffset={4}>
             {SORT_OPTIONS.map((option) => (
@@ -150,19 +128,6 @@ export function BrandFilters({
             ))}
           </SelectContent>
         </Select>
-
-        {hasFilters && (
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={clearFilters}
-            disabled={isPending}
-            className="gap-1"
-          >
-            <X className="h-4 w-4" />
-            초기화
-          </Button>
-        )}
       </div>
     </div>
   );

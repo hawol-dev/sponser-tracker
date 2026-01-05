@@ -1,19 +1,15 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { getBrands, type BrandSortBy, type SortOrder } from "@/lib/actions/brands";
-import { BrandCard } from "@/components/brands/brand-card";
-import { BrandFilters } from "@/components/brands/brand-filters";
+import { getBrands } from "@/lib/actions/brands";
+import { BrandsListClient } from "@/components/brands/brands-list-client";
 import { BrandGridSkeleton } from "@/components/brands/brand-card-skeleton";
-import { EmptyState, EmptyStateIcons } from "@/components/ui/empty-state";
 import type { BrandCategory } from "@/types/database";
 
 interface BrandsPageProps {
   searchParams: Promise<{
     search?: string;
     category?: BrandCategory;
-    sortBy?: BrandSortBy;
-    sortOrder?: SortOrder;
   }>;
 }
 
@@ -49,19 +45,10 @@ export default async function BrandsPage({ searchParams }: BrandsPageProps) {
         </Link>
       </div>
 
-      <BrandFilters
-        currentSearch={params.search}
-        currentCategory={params.category}
-        currentSortBy={params.sortBy}
-        currentSortOrder={params.sortOrder}
-      />
-
       <Suspense fallback={<BrandsLoading />}>
         <BrandsList
           search={params.search}
           category={params.category}
-          sortBy={params.sortBy}
-          sortOrder={params.sortOrder}
         />
       </Suspense>
     </div>
@@ -71,47 +58,18 @@ export default async function BrandsPage({ searchParams }: BrandsPageProps) {
 async function BrandsList({
   search,
   category,
-  sortBy,
-  sortOrder,
 }: {
   search?: string;
   category?: BrandCategory;
-  sortBy?: BrandSortBy;
-  sortOrder?: SortOrder;
 }) {
-  const brands = await getBrands({ search, category, sortBy, sortOrder });
-
-  if (brands.length === 0) {
-    if (search || category) {
-      return (
-        <EmptyState
-          icon={EmptyStateIcons.search}
-          title="검색 결과가 없습니다"
-          description="다른 검색어나 필터를 시도해보세요."
-          variant="card"
-        />
-      );
-    }
-
-    return (
-      <EmptyState
-        icon={EmptyStateIcons.brands}
-        title="아직 등록된 브랜드가 없습니다"
-        description="협업하는 브랜드를 등록하면 딜 생성 시 빠르게 연결할 수 있어요. 담당자 정보도 함께 관리해보세요."
-        action={{
-          label: "첫 브랜드 추가",
-          href: "/brands/new",
-        }}
-      />
-    );
-  }
+  const brands = await getBrands({ search, category });
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {brands.map((brand) => (
-        <BrandCard key={brand.id} brand={brand} />
-      ))}
-    </div>
+    <BrandsListClient
+      brands={brands}
+      currentSearch={search}
+      currentCategory={category}
+    />
   );
 }
 

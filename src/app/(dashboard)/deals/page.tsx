@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { getDeals, getBrandsForSelect, type DealSortBy, type SortOrder } from "@/lib/actions/deals";
+import { getDeals, getBrandsForSelect } from "@/lib/actions/deals";
 import { DealKanban } from "@/components/deals/deal-kanban";
 import { DealFilters } from "@/components/deals/deal-filters";
 import { KanbanBoardSkeleton } from "@/components/deals/deal-card-skeleton";
@@ -13,8 +13,6 @@ interface DealsPageProps {
     search?: string;
     status?: DealStatus;
     brandId?: string;
-    sortBy?: DealSortBy;
-    sortOrder?: SortOrder;
   }>;
 }
 
@@ -55,8 +53,6 @@ export default async function DealsPage({ searchParams }: DealsPageProps) {
         currentSearch={params.search}
         currentStatus={params.status}
         currentBrandId={params.brandId}
-        currentSortBy={params.sortBy}
-        currentSortOrder={params.sortOrder}
         brands={brands}
       />
 
@@ -65,8 +61,6 @@ export default async function DealsPage({ searchParams }: DealsPageProps) {
           search={params.search}
           status={params.status}
           brandId={params.brandId}
-          sortBy={params.sortBy}
-          sortOrder={params.sortOrder}
         />
       </Suspense>
     </div>
@@ -77,19 +71,14 @@ interface DealsKanbanWrapperProps {
   search?: string;
   status?: DealStatus;
   brandId?: string;
-  sortBy?: DealSortBy;
-  sortOrder?: SortOrder;
 }
 
-async function DealsKanbanWrapper({ search, status, brandId, sortBy, sortOrder }: DealsKanbanWrapperProps) {
-  const deals = await getDeals({ search, status, brandId, sortBy, sortOrder });
-  const hasFilters = search || status || brandId ||
-    (sortBy && sortBy !== "created_at") ||
-    (sortOrder && sortOrder !== "desc");
+async function DealsKanbanWrapper({ search, status, brandId }: DealsKanbanWrapperProps) {
+  const deals = await getDeals({ search, status, brandId });
+  const hasFilters = search || status || brandId;
 
   if (deals.length === 0) {
     if (hasFilters) {
-      // 필터 적용 결과가 없는 경우
       return (
         <EmptyState
           icon={EmptyStateIcons.deals}
@@ -103,7 +92,6 @@ async function DealsKanbanWrapper({ search, status, brandId, sortBy, sortOrder }
       );
     }
 
-    // 딜이 하나도 없는 경우
     return (
       <EmptyState
         icon={EmptyStateIcons.deals}

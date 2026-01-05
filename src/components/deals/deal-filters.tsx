@@ -13,18 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import type { DealStatus } from "@/types/database";
 import { DEAL_STATUS_LABELS } from "@/types/database";
-import type { DealSortBy, SortOrder } from "@/lib/actions/deals";
-import { Search, X, ArrowUpDown } from "lucide-react";
-
-const SORT_OPTIONS: { value: string; label: string }[] = [
-  { value: "created_at-desc", label: "최근 추가순" },
-  { value: "created_at-asc", label: "오래된순" },
-  { value: "amount-desc", label: "금액 높은순" },
-  { value: "amount-asc", label: "금액 낮은순" },
-  { value: "deadline-asc", label: "마감일 빠른순" },
-  { value: "deadline-desc", label: "마감일 느린순" },
-  { value: "title-asc", label: "제목 (A-Z)" },
-];
+import { Search } from "lucide-react";
 
 interface Brand {
   id: string;
@@ -35,8 +24,6 @@ interface DealFiltersProps {
   currentSearch?: string;
   currentStatus?: DealStatus;
   currentBrandId?: string;
-  currentSortBy?: DealSortBy;
-  currentSortOrder?: SortOrder;
   brands: Brand[];
 }
 
@@ -44,8 +31,6 @@ export function DealFilters({
   currentSearch,
   currentStatus,
   currentBrandId,
-  currentSortBy,
-  currentSortOrder,
   brands,
 }: DealFiltersProps) {
   const router = useRouter();
@@ -53,12 +38,9 @@ export function DealFilters({
   const [isPending, startTransition] = useTransition();
   const [searchValue, setSearchValue] = useState(currentSearch || "");
 
-  // URL 파라미터가 변경되면 검색값 동기화
   useEffect(() => {
     setSearchValue(currentSearch || "");
   }, [currentSearch]);
-
-  const currentSort = `${currentSortBy || "created_at"}-${currentSortOrder || "desc"}`;
 
   const updateFilters = useCallback(
     (updates: Record<string, string | null>) => {
@@ -101,25 +83,6 @@ export function DealFilters({
     [updateFilters]
   );
 
-  const handleSortChange = useCallback(
-    (value: string) => {
-      const [sortBy, sortOrder] = value.split("-") as [DealSortBy, SortOrder];
-      updateFilters({ sortBy, sortOrder });
-    },
-    [updateFilters]
-  );
-
-  const clearFilters = useCallback(() => {
-    setSearchValue("");
-    startTransition(() => {
-      router.push("/deals");
-    });
-  }, [router]);
-
-  const hasFilters = currentSearch || currentStatus || currentBrandId ||
-    (currentSortBy && currentSortBy !== "created_at") ||
-    (currentSortOrder && currentSortOrder !== "desc");
-
   return (
     <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
       <form onSubmit={handleSearch} className="flex gap-2 flex-1">
@@ -137,12 +100,12 @@ export function DealFilters({
         </Button>
       </form>
 
-      <div className="flex flex-wrap gap-2 items-center">
+      <div className="flex gap-2 items-center">
         <Select
           value={currentStatus || "all"}
           onValueChange={handleStatusChange}
         >
-          <SelectTrigger className="w-[130px]">
+          <SelectTrigger className="w-[120px]">
             <SelectValue placeholder="상태" />
           </SelectTrigger>
           <SelectContent position="popper" sideOffset={4}>
@@ -159,7 +122,7 @@ export function DealFilters({
           value={currentBrandId || "all"}
           onValueChange={handleBrandChange}
         >
-          <SelectTrigger className="w-[150px]">
+          <SelectTrigger className="w-[130px]">
             <SelectValue placeholder="브랜드" />
           </SelectTrigger>
           <SelectContent position="popper" sideOffset={4}>
@@ -171,33 +134,6 @@ export function DealFilters({
             ))}
           </SelectContent>
         </Select>
-
-        <Select value={currentSort} onValueChange={handleSortChange}>
-          <SelectTrigger className="w-[150px]">
-            <ArrowUpDown className="h-4 w-4 mr-2" />
-            <SelectValue placeholder="정렬" />
-          </SelectTrigger>
-          <SelectContent position="popper" sideOffset={4}>
-            {SORT_OPTIONS.map((option) => (
-              <SelectItem key={option.value} value={option.value}>
-                {option.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-
-        {hasFilters && (
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={clearFilters}
-            disabled={isPending}
-            className="gap-1"
-          >
-            <X className="h-4 w-4" />
-            초기화
-          </Button>
-        )}
       </div>
     </div>
   );
