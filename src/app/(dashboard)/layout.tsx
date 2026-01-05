@@ -2,6 +2,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/layout/app-sidebar";
 import { MobileNav } from "@/components/layout/mobile-nav";
 import { MobileFAB } from "@/components/layout/mobile-fab";
+import { HelpButton } from "@/components/help-button";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
@@ -32,6 +33,7 @@ export default async function DashboardLayout({
       </main>
       <MobileNav />
       <MobileFAB />
+      <HelpButton />
     </SidebarProvider>
   );
 }

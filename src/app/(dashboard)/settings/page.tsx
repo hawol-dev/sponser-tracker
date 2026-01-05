@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { Badge } from "@/components/ui/badge";
+import { CreditCard, CheckCircle2 } from "lucide-react";
 
 export default function SettingsPage() {
   const [user, setUser] = useState<any>(null);
@@ -156,6 +158,64 @@ export default function SettingsPage() {
                 </p>
               </div>
             )}
+          </CardContent>
+        </Card>
+
+        {/* 결제 / 구독 */}
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle>구독</CardTitle>
+                <CardDescription>현재 요금제를 확인하세요</CardDescription>
+              </div>
+              <Badge variant="secondary" className="bg-cyan-500/10 text-cyan-400 border-cyan-500/20">
+                Free
+              </Badge>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="rounded-lg border border-white/10 p-4 bg-zinc-900/50">
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="font-medium">Free 플랜</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    기본 기능 무료 이용 중
+                  </p>
+                </div>
+                <p className="text-2xl font-bold">₩0<span className="text-sm font-normal text-muted-foreground">/월</span></p>
+              </div>
+              <ul className="mt-4 space-y-2 text-sm">
+                <li className="flex items-center gap-2 text-muted-foreground">
+                  <CheckCircle2 className="w-4 h-4 text-cyan-400" />
+                  브랜드 10개 등록
+                </li>
+                <li className="flex items-center gap-2 text-muted-foreground">
+                  <CheckCircle2 className="w-4 h-4 text-cyan-400" />
+                  딜 20개 관리
+                </li>
+                <li className="flex items-center gap-2 text-muted-foreground">
+                  <CheckCircle2 className="w-4 h-4 text-cyan-400" />
+                  기본 분석
+                </li>
+              </ul>
+            </div>
+
+            <div className="rounded-lg border border-cyan-500/30 p-4 bg-cyan-500/5">
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="font-medium text-cyan-400">Pro 플랜</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    무제한 브랜드 & 딜, 고급 분석
+                  </p>
+                </div>
+                <p className="text-2xl font-bold">₩9,900<span className="text-sm font-normal text-muted-foreground">/월</span></p>
+              </div>
+              <Button className="w-full mt-4" disabled>
+                <CreditCard className="w-4 h-4 mr-2" />
+                업그레이드 (준비 중)
+              </Button>
+            </div>
           </CardContent>
         </Card>
 

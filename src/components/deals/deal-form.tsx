@@ -18,6 +18,9 @@ import {
   validateRequired,
   validateAmount,
 } from "@/components/ui/form-field";
+import { AmountInput } from "@/components/ui/amount-input";
+import { DatePicker } from "@/components/ui/date-picker";
+import { Label } from "@/components/ui/label";
 import { createDeal, updateDeal, type DealFormData } from "@/lib/actions/deals";
 import type { Deal, DealStatus, ContentType, Currency } from "@/types/database";
 import { DEAL_STATUS_LABELS, CONTENT_TYPE_LABELS } from "@/types/database";
@@ -194,18 +197,17 @@ export function DealForm({ deal, brands }: DealFormProps) {
           <div className="space-y-4">
             <h3 className="font-medium text-sm text-muted-foreground">금액 정보</h3>
             <div className="grid gap-4 sm:grid-cols-2">
-              <FormField
-                label="금액"
-                name="amount"
-                type="number"
-                min={0}
-                step={1000}
-                defaultValue={deal?.amount || 0}
-                placeholder="0"
-                error={touched.amount ? fieldErrors.amount : undefined}
-                onBlur={handleBlur}
-                hint="협찬 금액"
-              />
+              <div className="space-y-2">
+                <Label>금액</Label>
+                <AmountInput
+                  name="amount"
+                  defaultValue={deal?.amount || 0}
+                  placeholder="ex: 200,000"
+                  error={touched.amount ? fieldErrors.amount : undefined}
+                  onBlur={handleBlur}
+                />
+                <p className="text-xs text-muted-foreground">협찬 금액</p>
+              </div>
 
               <FormSelectWrapper label="통화">
                 <Select name="currency" defaultValue={deal?.currency || "KRW"}>
@@ -224,30 +226,36 @@ export function DealForm({ deal, brands }: DealFormProps) {
           {/* 날짜 정보 */}
           <div className="space-y-4">
             <h3 className="font-medium text-sm text-muted-foreground">일정</h3>
-            <div className="grid gap-4 sm:grid-cols-3">
-              <FormField
-                label="마감일"
-                name="deadline"
-                type="date"
-                defaultValue={deal?.deadline || ""}
-                hint="콘텐츠 제출 마감"
-              />
+            <div className="grid gap-4 grid-cols-1 sm:grid-cols-3">
+              <div className="space-y-2">
+                <Label>마감일</Label>
+                <DatePicker
+                  name="deadline"
+                  value={deal?.deadline || ""}
+                  placeholder="마감일 선택"
+                />
+                <p className="text-xs text-muted-foreground">콘텐츠 제출 마감</p>
+              </div>
 
-              <FormField
-                label="게시일"
-                name="publish_date"
-                type="date"
-                defaultValue={deal?.publish_date || ""}
-                hint="콘텐츠 업로드 예정일"
-              />
+              <div className="space-y-2">
+                <Label>게시일</Label>
+                <DatePicker
+                  name="publish_date"
+                  value={deal?.publish_date || ""}
+                  placeholder="게시일 선택"
+                />
+                <p className="text-xs text-muted-foreground">콘텐츠 업로드 예정일</p>
+              </div>
 
-              <FormField
-                label="결제일"
-                name="payment_date"
-                type="date"
-                defaultValue={deal?.payment_date || ""}
-                hint="대금 수령 예정일"
-              />
+              <div className="space-y-2">
+                <Label>결제일</Label>
+                <DatePicker
+                  name="payment_date"
+                  value={deal?.payment_date || ""}
+                  placeholder="결제일 선택"
+                />
+                <p className="text-xs text-muted-foreground">대금 수령 예정일</p>
+              </div>
             </div>
           </div>
 

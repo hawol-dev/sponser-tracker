@@ -38,7 +38,7 @@ export function KanbanColumn({ status, deals }: KanbanColumnProps) {
       ref={setNodeRef}
       className={`flex flex-col rounded-xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-sm ${
         isOver ? `ring-2 ${colors.ring} scale-[1.02]` : ""
-      } min-w-[280px] max-w-[280px] transition-all duration-200`}
+      } flex-1 min-w-0 transition-all duration-200`}
     >
       {/* 헤더 */}
       <div className={`p-4 rounded-t-xl bg-gradient-to-r ${colors.header}`}>
