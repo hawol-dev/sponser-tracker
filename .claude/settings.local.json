@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:saaslandingpage.com)",
+      "WebFetch(domain:www.landingfolio.com)",
+      "WebFetch(domain:saaspo.com)"
+    ]
+  }
+}

@@ -1,9 +1,10 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { getBrands } from "@/lib/actions/brands";
+import { getBrands, type BrandSortBy, type SortOrder } from "@/lib/actions/brands";
 import { BrandCard } from "@/components/brands/brand-card";
 import { BrandFilters } from "@/components/brands/brand-filters";
+import { BrandGridSkeleton } from "@/components/brands/brand-card-skeleton";
 import { EmptyState, EmptyStateIcons } from "@/components/ui/empty-state";
 import type { BrandCategory } from "@/types/database";
 
@@ -11,6 +12,8 @@ interface BrandsPageProps {
   searchParams: Promise<{
     search?: string;
     category?: BrandCategory;
+    sortBy?: BrandSortBy;
+    sortOrder?: SortOrder;
   }>;
 }
 
@@ -19,7 +22,7 @@ export default async function BrandsPage({ searchParams }: BrandsPageProps) {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold">브랜드</h1>
           <p className="text-muted-foreground">협업 브랜드를 관리하세요</p>
@@ -49,10 +52,17 @@ export default async function BrandsPage({ searchParams }: BrandsPageProps) {
       <BrandFilters
         currentSearch={params.search}
         currentCategory={params.category}
+        currentSortBy={params.sortBy}
+        currentSortOrder={params.sortOrder}
       />
 
       <Suspense fallback={<BrandsLoading />}>
-        <BrandsList search={params.search} category={params.category} />
+        <BrandsList
+          search={params.search}
+          category={params.category}
+          sortBy={params.sortBy}
+          sortOrder={params.sortOrder}
+        />
       </Suspense>
     </div>
   );
@@ -61,11 +71,15 @@ export default async function BrandsPage({ searchParams }: BrandsPageProps) {
 async function BrandsList({
   search,
   category,
+  sortBy,
+  sortOrder,
 }: {
   search?: string;
   category?: BrandCategory;
+  sortBy?: BrandSortBy;
+  sortOrder?: SortOrder;
 }) {
-  const brands = await getBrands({ search, category });
+  const brands = await getBrands({ search, category, sortBy, sortOrder });
 
   if (brands.length === 0) {
     if (search || category) {
@@ -102,14 +116,5 @@ async function BrandsList({
 }
 
 function BrandsLoading() {
-  return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {[1, 2, 3].map((i) => (
-        <div
-          key={i}
-          className="h-32 animate-pulse rounded-lg border bg-muted"
-        />
-      ))}
-    </div>
-  );
+  return <BrandGridSkeleton count={6} />;
 }

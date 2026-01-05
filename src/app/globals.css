@@ -46,8 +46,9 @@
   --radius-4xl: calc(var(--radius) + 16px);
 }
 
-/* Light mode - 거의 사용하지 않음 (다크모드가 기본) */
-:root {
+/* Light mode */
+:root,
+.light {
   --radius: 0.625rem;
   --background: #ffffff;
   --foreground: #09090b;
@@ -137,17 +138,33 @@
     @apply bg-gradient-to-r from-violet-500 to-indigo-500 bg-clip-text text-transparent;
   }
 
-  /* Glassmorphism */
-  .glass {
+  /* Glassmorphism - Dark mode */
+  .dark .glass {
     @apply bg-white/[0.03] backdrop-blur-md border border-white/[0.08];
   }
 
-  .glass-card {
+  .dark .glass-card {
     @apply bg-white/[0.03] backdrop-blur-md border border-white/[0.08] rounded-xl;
   }
 
-  .glass-strong {
+  .dark .glass-strong {
     @apply bg-white/[0.08] backdrop-blur-xl border border-white/[0.12];
+  }
+
+  /* Glassmorphism - Light mode */
+  .light .glass,
+  :root:not(.dark) .glass {
+    @apply bg-black/[0.02] backdrop-blur-md border border-black/[0.08];
+  }
+
+  .light .glass-card,
+  :root:not(.dark) .glass-card {
+    @apply bg-black/[0.02] backdrop-blur-md border border-black/[0.08] rounded-xl;
+  }
+
+  .light .glass-strong,
+  :root:not(.dark) .glass-strong {
+    @apply bg-black/[0.04] backdrop-blur-xl border border-black/[0.12];
   }
 
   /* Glow Effects */

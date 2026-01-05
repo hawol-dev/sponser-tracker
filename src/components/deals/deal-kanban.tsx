@@ -8,13 +8,16 @@ import {
   DragOverlay,
   DragStartEvent,
   PointerSensor,
+  TouchSensor,
   useSensor,
   useSensors,
   closestCenter,
 } from "@dnd-kit/core";
 import { KanbanColumn } from "./kanban-column";
 import { DealCard } from "./deal-card";
+import { MobileKanban } from "./mobile-kanban";
 import { updateDealStatus } from "@/lib/actions/deals";
+import { useIsMobile } from "@/hooks/use-media-query";
 import type { Deal, DealStatus } from "@/types/database";
 
 const STATUSES: DealStatus[] = [
@@ -31,6 +34,7 @@ interface DealKanbanProps {
 }
 
 export function DealKanban({ initialDeals }: DealKanbanProps) {
+  const isMobile = useIsMobile();
   const [deals, setDeals] = useState<Deal[]>(initialDeals);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
@@ -40,8 +44,24 @@ export function DealKanban({ initialDeals }: DealKanbanProps) {
       activationConstraint: {
         distance: 8,
       },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 250,
+        tolerance: 5,
+      },
     })
   );
+
+  // Render mobile kanban for mobile devices
+  if (isMobile) {
+    return (
+      <MobileKanban
+        deals={deals}
+        onDealsChange={setDeals}
+      />
+    );
+  }
 
   const activeDeal = activeId ? deals.find((d) => d.id === activeId) : null;
 
@@ -98,12 +118,13 @@ export function DealKanban({ initialDeals }: DealKanbanProps) {
     }
 
     if (targetStatus) {
+      const newStatus = targetStatus; // Capture for closure
       const activeDeal = initialDeals.find((d) => d.id === activeId);
-      if (activeDeal && activeDeal.status !== targetStatus) {
+      if (activeDeal && activeDeal.status !== newStatus) {
         // Update on server
         startTransition(async () => {
           try {
-            await updateDealStatus(activeId, targetStatus);
+            await updateDealStatus(activeId, newStatus);
           } catch (error) {
             // Revert on error
             setDeals(initialDeals);
@@ -140,7 +161,11 @@ export function DealKanban({ initialDeals }: DealKanbanProps) {
       </DragOverlay>
 
       {isPending && (
-        <div className="fixed bottom-4 right-4 bg-primary text-primary-foreground px-4 py-2 rounded-lg shadow-lg text-sm">
+        <div
+          role="status"
+          aria-live="polite"
+          className="fixed bottom-4 right-4 bg-primary text-primary-foreground px-4 py-2 rounded-lg shadow-lg text-sm"
+        >
           저장 중...
         </div>
       )}

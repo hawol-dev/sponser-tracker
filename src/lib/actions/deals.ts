@@ -18,21 +18,30 @@ export type DealFormData = {
   notes?: string;
 };
 
+export type DealSortBy = "amount" | "deadline" | "created_at" | "title";
+export type SortOrder = "asc" | "desc";
+
 // 딜 목록 조회
 export async function getDeals(options?: {
   status?: DealStatus;
   brandId?: string;
+  search?: string;
+  sortBy?: DealSortBy;
+  sortOrder?: SortOrder;
 }) {
   const supabase = await createClient();
 
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) throw new Error("인증이 필요합니다");
 
+  const sortBy = options?.sortBy || "created_at";
+  const ascending = options?.sortOrder === "asc";
+
   let query = supabase
     .from("deals")
     .select("*, brand:brands(*)")
     .eq("user_id", user.id)
-    .order("created_at", { ascending: false });
+    .order(sortBy, { ascending });
 
   if (options?.status) {
     query = query.eq("status", options.status);
@@ -45,7 +54,19 @@ export async function getDeals(options?: {
   const { data, error } = await query;
 
   if (error) throw error;
-  return data as Deal[];
+
+  // 검색어가 있으면 클라이언트 측에서 필터링 (제목 + 브랜드명)
+  let filteredData = data as Deal[];
+  if (options?.search) {
+    const searchLower = options.search.toLowerCase();
+    filteredData = filteredData.filter((deal) => {
+      const titleMatch = deal.title.toLowerCase().includes(searchLower);
+      const brandMatch = deal.brand?.name?.toLowerCase().includes(searchLower);
+      return titleMatch || brandMatch;
+    });
+  }
+
+  return filteredData;
 }
 
 // 단일 딜 조회

@@ -1,14 +1,30 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { getDeals } from "@/lib/actions/deals";
+import { getDeals, getBrandsForSelect, type DealSortBy, type SortOrder } from "@/lib/actions/deals";
 import { DealKanban } from "@/components/deals/deal-kanban";
+import { DealFilters } from "@/components/deals/deal-filters";
+import { KanbanBoardSkeleton } from "@/components/deals/deal-card-skeleton";
 import { EmptyState, EmptyStateIcons } from "@/components/ui/empty-state";
+import type { DealStatus } from "@/types/database";
 
-export default function DealsPage() {
+interface DealsPageProps {
+  searchParams: Promise<{
+    search?: string;
+    status?: DealStatus;
+    brandId?: string;
+    sortBy?: DealSortBy;
+    sortOrder?: SortOrder;
+  }>;
+}
+
+export default async function DealsPage({ searchParams }: DealsPageProps) {
+  const params = await searchParams;
+  const brands = await getBrandsForSelect();
+
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold">딜 관리</h1>
           <p className="text-muted-foreground">스폰서십 딜을 관리하세요</p>
@@ -35,17 +51,59 @@ export default function DealsPage() {
         </Link>
       </div>
 
+      <DealFilters
+        currentSearch={params.search}
+        currentStatus={params.status}
+        currentBrandId={params.brandId}
+        currentSortBy={params.sortBy}
+        currentSortOrder={params.sortOrder}
+        brands={brands}
+      />
+
       <Suspense fallback={<KanbanLoading />}>
-        <DealsKanbanWrapper />
+        <DealsKanbanWrapper
+          search={params.search}
+          status={params.status}
+          brandId={params.brandId}
+          sortBy={params.sortBy}
+          sortOrder={params.sortOrder}
+        />
       </Suspense>
     </div>
   );
 }
 
-async function DealsKanbanWrapper() {
-  const deals = await getDeals();
+interface DealsKanbanWrapperProps {
+  search?: string;
+  status?: DealStatus;
+  brandId?: string;
+  sortBy?: DealSortBy;
+  sortOrder?: SortOrder;
+}
+
+async function DealsKanbanWrapper({ search, status, brandId, sortBy, sortOrder }: DealsKanbanWrapperProps) {
+  const deals = await getDeals({ search, status, brandId, sortBy, sortOrder });
+  const hasFilters = search || status || brandId ||
+    (sortBy && sortBy !== "created_at") ||
+    (sortOrder && sortOrder !== "desc");
 
   if (deals.length === 0) {
+    if (hasFilters) {
+      // 필터 적용 결과가 없는 경우
+      return (
+        <EmptyState
+          icon={EmptyStateIcons.deals}
+          title="검색 결과가 없습니다"
+          description="다른 검색어나 필터를 시도해보세요."
+          action={{
+            label: "필터 초기화",
+            href: "/deals",
+          }}
+        />
+      );
+    }
+
+    // 딜이 하나도 없는 경우
     return (
       <EmptyState
         icon={EmptyStateIcons.deals}
@@ -67,14 +125,5 @@ async function DealsKanbanWrapper() {
 }
 
 function KanbanLoading() {
-  return (
-    <div className="flex gap-4 overflow-x-auto pb-4">
-      {[1, 2, 3, 4, 5, 6].map((i) => (
-        <div
-          key={i}
-          className="min-w-[280px] h-[400px] animate-pulse rounded-lg bg-muted"
-        />
-      ))}
-    </div>
-  );
+  return <KanbanBoardSkeleton />;
 }

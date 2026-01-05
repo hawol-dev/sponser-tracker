@@ -15,21 +15,29 @@ export type BrandFormData = {
   notes?: string;
 };
 
+export type BrandSortBy = "name" | "category" | "created_at";
+export type SortOrder = "asc" | "desc";
+
 // 브랜드 목록 조회
 export async function getBrands(options?: {
   search?: string;
   category?: BrandCategory;
+  sortBy?: BrandSortBy;
+  sortOrder?: SortOrder;
 }) {
   const supabase = await createClient();
 
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) throw new Error("인증이 필요합니다");
 
+  const sortBy = options?.sortBy || "created_at";
+  const ascending = options?.sortOrder === "asc";
+
   let query = supabase
     .from("brands")
     .select("*")
     .eq("user_id", user.id)
-    .order("created_at", { ascending: false });
+    .order(sortBy, { ascending });
 
   // 검색어 필터
   if (options?.search) {
