@@ -116,7 +116,7 @@ export function BrandFilters({
         </Select>
 
         <Select value={sortValue} onValueChange={(v) => onSortChange(v as SortOption)}>
-          <SelectTrigger className="w-[145px]">
+          <SelectTrigger className="w-[155px]">
             <ArrowUpDown className="h-4 w-4 mr-2 shrink-0" />
             <SelectValue />
           </SelectTrigger>

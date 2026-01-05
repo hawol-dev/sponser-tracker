@@ -37,13 +37,14 @@ export function HelpButton() {
 
   return (
     <>
-      {/* Floating Button */}
+      {/* Header Button */}
       <button
         onClick={() => setModalOpen(true)}
-        className="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-cyan-500 hover:bg-cyan-400 text-white shadow-lg shadow-cyan-500/25 flex items-center justify-center transition-colors cursor-pointer"
+        className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-white/[0.05] transition-colors cursor-pointer"
         aria-label="문의하기"
+        title="문의하기"
       >
-        <HelpCircle className="w-6 h-6" />
+        <HelpCircle className="w-5 h-5" />
       </button>
 
       {/* Modal */}

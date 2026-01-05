@@ -18,11 +18,11 @@ interface BrandChartProps {
 }
 
 const COLORS = [
-  "hsl(var(--primary))",
-  "hsl(var(--primary) / 0.8)",
-  "hsl(var(--primary) / 0.6)",
-  "hsl(var(--primary) / 0.4)",
-  "hsl(var(--primary) / 0.3)",
+  "#06b6d4",
+  "#0891b2",
+  "#0e7490",
+  "#155e75",
+  "#164e63",
 ];
 
 const formatRevenue = (value: number) => {
@@ -39,12 +39,12 @@ const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     return (
-      <div className="bg-white border rounded-lg shadow-lg p-3">
-        <p className="font-medium">{data.brandName}</p>
-        <p className="text-primary">
+      <div className="bg-zinc-900 border border-white/10 rounded-lg shadow-lg p-3">
+        <p className="font-medium text-white">{data.brandName}</p>
+        <p className="text-cyan-400">
           수익: {data.revenue.toLocaleString()}원
         </p>
-        <p className="text-muted-foreground text-sm">
+        <p className="text-zinc-400 text-sm">
           딜 수: {data.count}건
         </p>
       </div>
@@ -66,20 +66,21 @@ export function BrandChart({ data }: BrandChartProps) {
           <div className="h-[300px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data} layout="vertical">
-                <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
                 <XAxis
                   type="number"
                   tickFormatter={formatRevenue}
-                  className="text-xs"
+                  stroke="#71717a"
+                  fontSize={12}
                 />
                 <YAxis
                   type="category"
                   dataKey="brandName"
                   width={100}
-                  className="text-xs"
-                  tick={{ fontSize: 12 }}
+                  stroke="#71717a"
+                  fontSize={12}
                 />
-                <Tooltip content={<CustomTooltip />} />
+                <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.05)' }} />
                 <Bar dataKey="revenue" radius={[0, 4, 4, 0]}>
                   {data.map((_, index) => (
                     <Cell

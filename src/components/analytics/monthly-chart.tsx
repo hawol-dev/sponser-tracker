@@ -17,7 +17,7 @@ interface MonthlyChartProps {
 }
 
 const formatMonth = (month: string) => {
-  const [year, m] = month.split("-");
+  const [, m] = month.split("-");
   return `${m}월`;
 };
 
@@ -35,12 +35,12 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     const [year, month] = label.split("-");
     return (
-      <div className="bg-white border rounded-lg shadow-lg p-3">
-        <p className="font-medium">{`${year}년 ${month}월`}</p>
-        <p className="text-primary">
+      <div className="bg-zinc-900 border border-white/10 rounded-lg shadow-lg p-3">
+        <p className="font-medium text-white">{`${year}년 ${month}월`}</p>
+        <p className="text-cyan-400">
           수익: {payload[0].value.toLocaleString()}원
         </p>
-        <p className="text-muted-foreground text-sm">
+        <p className="text-zinc-400 text-sm">
           딜 수: {payload[0].payload.count}건
         </p>
       </div>
@@ -64,26 +64,28 @@ export function MonthlyChart({ data }: MonthlyChartProps) {
               <AreaChart data={data}>
                 <defs>
                   <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3} />
-                    <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0} />
+                    <stop offset="5%" stopColor="#06b6d4" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="#06b6d4" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
                 <XAxis
                   dataKey="month"
                   tickFormatter={formatMonth}
-                  className="text-xs"
+                  stroke="#71717a"
+                  fontSize={12}
                 />
                 <YAxis
                   tickFormatter={formatRevenue}
-                  className="text-xs"
+                  stroke="#71717a"
+                  fontSize={12}
                   width={60}
                 />
                 <Tooltip content={<CustomTooltip />} />
                 <Area
                   type="monotone"
                   dataKey="revenue"
-                  stroke="hsl(var(--primary))"
+                  stroke="#06b6d4"
                   strokeWidth={2}
                   fill="url(#colorRevenue)"
                 />

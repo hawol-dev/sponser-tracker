@@ -7,6 +7,7 @@ import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 
+
 export default async function DashboardLayout({
   children,
 }: {
@@ -27,13 +28,15 @@ export default async function DashboardLayout({
       <main className="flex-1 overflow-auto bg-gradient-to-br from-background via-background to-cyan-950/5">
         <header className="sticky top-0 z-10 flex h-14 items-center justify-between border-b border-white/[0.08] bg-background/80 backdrop-blur-xl px-4 md:flex">
           <SidebarTrigger className="text-muted-foreground hover:text-foreground transition-colors" />
-          <ThemeToggle />
+          <div className="flex items-center gap-2">
+            <HelpButton />
+            <ThemeToggle />
+          </div>
         </header>
         <div className="p-4 md:p-6 pb-24 md:pb-6">{children}</div>
       </main>
       <MobileNav />
       <MobileFAB />
-      <HelpButton />
     </SidebarProvider>
   );
 }
