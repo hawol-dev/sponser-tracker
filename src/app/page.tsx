@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import { useState } from "react";
 import {
   Menu,
   X,
@@ -12,165 +11,65 @@ import {
   Bell,
   TrendingUp,
   Users,
-  Video,
-  Shield,
-  Check,
-  ChevronDown,
-  Play,
   Zap,
+  BarChart3,
+  Calendar,
+  FileText,
+  CheckCircle2,
 } from "lucide-react";
-
-// Simple fade in animation component
-function FadeInWhenVisible({
-  children,
-  delay = 0,
-  className = ""
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{ duration: 0.6, delay, ease: [0.21, 0.47, 0.32, 0.98] }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
-
-  const navItems = [
-    { href: "#features", label: "기능" },
-    { href: "#how-it-works", label: "사용법" },
-    { href: "#pricing", label: "요금제" },
-    { href: "#faq", label: "FAQ" },
-  ];
-
-  const features = [
-    {
-      icon: LayoutDashboard,
-      title: "칸반 보드",
-      description: "드래그 앤 드롭으로 딜 상태를 직관적으로 관리하세요",
-      gradient: "from-violet-500 to-purple-600",
-    },
-    {
-      icon: Bell,
-      title: "마감일 알림",
-      description: "중요한 마감일을 놓치지 않도록 알려드립니다",
-      gradient: "from-amber-500 to-orange-600",
-    },
-    {
-      icon: TrendingUp,
-      title: "수익 분석",
-      description: "월별, 브랜드별 수익을 차트로 한눈에 파악하세요",
-      gradient: "from-emerald-500 to-teal-600",
-    },
-    {
-      icon: Users,
-      title: "브랜드 CRM",
-      description: "담당자 연락처와 협업 히스토리를 체계적으로 관리",
-      gradient: "from-blue-500 to-indigo-600",
-    },
-    {
-      icon: Video,
-      title: "콘텐츠 관리",
-      description: "유튜브, 인스타, 블로그 등 플랫폼별 구분 관리",
-      gradient: "from-pink-500 to-rose-600",
-    },
-    {
-      icon: Shield,
-      title: "안전한 데이터",
-      description: "모든 데이터는 암호화되어 안전하게 저장됩니다",
-      gradient: "from-cyan-500 to-blue-600",
-    },
-  ];
-
-  const steps = [
-    {
-      number: "01",
-      title: "무료 가입",
-      description: "이메일 또는 구글 계정으로 30초 만에 가입",
-    },
-    {
-      number: "02",
-      title: "브랜드 & 딜 등록",
-      description: "협업 브랜드와 진행 중인 딜을 등록",
-    },
-    {
-      number: "03",
-      title: "칸반으로 관리",
-      description: "드래그 앤 드롭으로 상태 업데이트",
-    },
-  ];
-
-  const faqs = [
-    {
-      question: "무료로 사용할 수 있나요?",
-      answer: "네! Free 플랜으로 딜 10개, 브랜드 5개까지 무료로 사용하실 수 있습니다. 신용카드 없이 바로 시작하세요.",
-    },
-    {
-      question: "내 데이터는 안전한가요?",
-      answer: "모든 데이터는 암호화되어 저장되며, 업계 표준 보안 프로토콜을 따릅니다. 데이터는 언제든 내보낼 수 있습니다.",
-    },
-    {
-      question: "어떤 플랫폼을 지원하나요?",
-      answer: "유튜브, 인스타그램, 블로그, 틱톡 등 모든 콘텐츠 플랫폼의 스폰서십을 관리할 수 있습니다.",
-    },
-    {
-      question: "환불 정책은 어떻게 되나요?",
-      answer: "구매 후 14일 이내 요청 시 전액 환불해드립니다.",
-    },
-  ];
 
   return (
-    <div className="min-h-screen bg-[#0A0A0B]">
+    <div className="min-h-screen bg-black text-white">
+      {/* Background gradient effect */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-gradient-to-b from-blue-500/20 via-blue-500/5 to-transparent blur-3xl" />
+      </div>
+
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-[#0A0A0B]/80 backdrop-blur-xl">
+      <nav className="relative z-50 border-b border-white/5">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm">
+            <Link href="/" className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-black font-bold text-sm">
                 S
               </div>
-              <span className="font-semibold text-white">Sponsor Tracker</span>
+              <span className="font-medium text-white">Sponsor Tracker</span>
             </Link>
 
-            {/* Desktop Nav */}
-            <div className="hidden md:flex items-center gap-8">
-              {navItems.map((item) => (
+            {/* Desktop Nav - Center */}
+            <div className="hidden md:flex items-center gap-1">
+              {[
+                { href: "#features", label: "기능" },
+                { href: "#how-it-works", label: "사용법" },
+                { href: "#pricing", label: "요금제" },
+              ].map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
-                  className="text-sm text-zinc-400 hover:text-white transition-colors"
+                  className="px-4 py-2 text-sm text-zinc-400 hover:text-white transition-colors"
                 >
                   {item.label}
                 </a>
               ))}
             </div>
 
-            {/* CTA */}
+            {/* CTA - Right */}
             <div className="hidden md:flex items-center gap-3">
-              <Link href="/login">
-                <Button variant="ghost" size="sm" className="text-zinc-400 hover:text-white">
-                  로그인
-                </Button>
+              <Link
+                href="/login"
+                className="px-4 py-2 text-sm text-zinc-400 hover:text-white transition-colors"
+              >
+                로그인
               </Link>
-              <Link href="/signup">
-                <Button size="sm" className="bg-white text-black hover:bg-zinc-200">
-                  무료 시작
-                </Button>
+              <Link
+                href="/signup"
+                className="px-5 py-2.5 text-sm font-medium bg-white text-black rounded-full hover:bg-zinc-200 transition-colors"
+              >
+                시작하기
               </Link>
             </div>
 
@@ -187,27 +86,35 @@ export default function Home() {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            className="md:hidden border-t border-white/5 bg-[#0A0A0B]"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="md:hidden border-t border-white/5 bg-black"
           >
-            <div className="px-6 py-4 space-y-3">
-              {navItems.map((item) => (
+            <div className="px-6 py-4 space-y-1">
+              {[
+                { href: "#features", label: "기능" },
+                { href: "#how-it-works", label: "사용법" },
+                { href: "#pricing", label: "요금제" },
+              ].map((item) => (
                 <a
                   key={item.href}
                   href={item.href}
-                  className="block text-zinc-400 hover:text-white py-2"
+                  className="block px-4 py-3 text-zinc-400 hover:text-white rounded-lg hover:bg-white/5"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.label}
                 </a>
               ))}
-              <div className="flex gap-3 pt-4">
+              <div className="pt-4 flex gap-3">
                 <Link href="/login" className="flex-1">
-                  <Button variant="outline" className="w-full">로그인</Button>
+                  <button className="w-full py-3 text-sm border border-white/10 rounded-full hover:bg-white/5">
+                    로그인
+                  </button>
                 </Link>
                 <Link href="/signup" className="flex-1">
-                  <Button className="w-full bg-white text-black hover:bg-zinc-200">무료 시작</Button>
+                  <button className="w-full py-3 text-sm bg-white text-black rounded-full hover:bg-zinc-200">
+                    시작하기
+                  </button>
                 </Link>
               </div>
             </div>
@@ -216,375 +123,530 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6">
-        <div className="max-w-6xl mx-auto">
+      <section className="relative pt-24 pb-20 px-6">
+        <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
-          <FadeInWhenVisible className="flex justify-center mb-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-500/10 border border-violet-500/20">
-              <Zap className="w-4 h-4 text-violet-400" />
-              <span className="text-sm text-violet-300">크리에이터를 위한 스폰서십 관리 플랫폼</span>
-            </div>
-          </FadeInWhenVisible>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm mb-8"
+          >
+            <Zap className="w-4 h-4 text-blue-400" />
+            <span className="text-sm text-zinc-300">크리에이터를 위한 스폰서십 관리</span>
+          </motion.div>
 
           {/* Headline */}
-          <FadeInWhenVisible delay={0.1} className="text-center mb-6">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight">
-              협찬 관리를
-              <br />
-              <span className="bg-gradient-to-r from-violet-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
-                더 스마트하게
-              </span>
-            </h1>
-          </FadeInWhenVisible>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight mb-6"
+            style={{ fontFamily: "Georgia, serif" }}
+          >
+            협찬 관리를
+            <br />
+            <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+              한 곳에서
+            </span>
+          </motion.h1>
 
           {/* Subheadline */}
-          <FadeInWhenVisible delay={0.2} className="text-center mb-10">
-            <p className="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-              피칭부터 결제까지, 모든 스폰서십을 한 곳에서.
-              <br className="hidden sm:block" />
-              칸반보드로 진행 상황을 시각화하고 수익을 분석하세요.
-            </p>
-          </FadeInWhenVisible>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-lg md:text-xl text-zinc-400 mb-10 max-w-2xl mx-auto leading-relaxed"
+          >
+            피칭부터 결제까지, 모든 스폰서십 워크플로우를 관리하세요.
+            <br className="hidden sm:block" />
+            더 이상 엑셀과 메모장에서 시간 낭비하지 마세요.
+          </motion.p>
 
           {/* CTA Buttons */}
-          <FadeInWhenVisible delay={0.3} className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          >
             <Link href="/signup">
-              <Button size="lg" className="text-base px-8 h-12 bg-white text-black hover:bg-zinc-200 group">
+              <button className="group px-8 py-4 text-base font-medium bg-white text-black rounded-full hover:bg-zinc-200 transition-all flex items-center gap-2">
                 무료로 시작하기
-                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
             </Link>
-            <a href="#how-it-works">
-              <Button
-                variant="outline"
-                size="lg"
-                className="text-base px-8 h-12 border-zinc-700 bg-transparent hover:bg-zinc-800 text-white"
-              >
-                <Play className="mr-2 w-4 h-4" />
-                작동 방식 보기
-              </Button>
-            </a>
-          </FadeInWhenVisible>
+            <Link href="#features">
+              <button className="px-8 py-4 text-base font-medium border-2 border-white/10 rounded-full hover:bg-white/5 hover:border-white/20 transition-all backdrop-blur-sm">
+                기능 살펴보기
+              </button>
+            </Link>
+          </motion.div>
 
-          <FadeInWhenVisible delay={0.4} className="text-center text-sm text-zinc-500">
-            신용카드 없이 무료로 시작
-          </FadeInWhenVisible>
+          {/* Trust text */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="mt-8 text-sm text-zinc-500"
+          >
+            신용카드 없이 무료로 시작 · 500+ 크리에이터가 사용 중
+          </motion.p>
+        </div>
 
-          {/* Product Preview */}
-          <FadeInWhenVisible delay={0.5} className="mt-16">
-            <div className="relative">
-              {/* Glow effect */}
-              <div className="absolute -inset-4 bg-gradient-to-r from-violet-600/20 via-purple-600/20 to-indigo-600/20 rounded-3xl blur-3xl" />
+        {/* Product Preview */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.4 }}
+          className="max-w-5xl mx-auto mt-16"
+        >
+          <div className="relative">
+            {/* Glow */}
+            <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/10 via-cyan-500/10 to-blue-500/10 rounded-3xl blur-2xl" />
 
-              {/* Browser frame */}
-              <div className="relative rounded-xl overflow-hidden border border-zinc-800 bg-zinc-900/80 backdrop-blur">
-                {/* Browser chrome */}
-                <div className="flex items-center gap-2 px-4 py-3 bg-zinc-900 border-b border-zinc-800">
-                  <div className="flex gap-1.5">
-                    <div className="w-3 h-3 rounded-full bg-zinc-700" />
-                    <div className="w-3 h-3 rounded-full bg-zinc-700" />
-                    <div className="w-3 h-3 rounded-full bg-zinc-700" />
-                  </div>
-                  <div className="flex-1 flex justify-center">
-                    <div className="px-4 py-1 rounded-md bg-zinc-800 text-xs text-zinc-400">
-                      app.sponsortracker.io
-                    </div>
-                  </div>
+            {/* Browser frame */}
+            <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-zinc-950">
+              {/* Browser chrome */}
+              <div className="flex items-center gap-2 px-4 py-3 bg-zinc-900/80 border-b border-white/5">
+                <div className="flex gap-1.5">
+                  <div className="w-3 h-3 rounded-full bg-zinc-700" />
+                  <div className="w-3 h-3 rounded-full bg-zinc-700" />
+                  <div className="w-3 h-3 rounded-full bg-zinc-700" />
                 </div>
-
-                {/* Dashboard mockup */}
-                <div className="p-6 bg-[#0c0c0e]">
-                  {/* Stats row */}
-                  <div className="grid grid-cols-4 gap-4 mb-6">
-                    {[
-                      { label: "이번 달 수익", value: "₩4,500,000", change: "+23%" },
-                      { label: "진행 중인 딜", value: "8건" },
-                      { label: "완료된 딜", value: "24건" },
-                      { label: "협업 브랜드", value: "12개" },
-                    ].map((stat, i) => (
-                      <div
-                        key={i}
-                        className="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700/50"
-                      >
-                        <p className="text-xs text-zinc-500 mb-1">{stat.label}</p>
-                        <p className="text-lg font-semibold text-white flex items-center gap-2">
-                          {stat.value}
-                          {stat.change && (
-                            <span className="text-xs text-emerald-400">{stat.change}</span>
-                          )}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Kanban preview */}
-                  <div className="grid grid-cols-6 gap-3">
-                    {[
-                      { name: "피칭", color: "#71717a", count: 3 },
-                      { name: "협상 중", color: "#f59e0b", count: 2 },
-                      { name: "계약", color: "#3b82f6", count: 2 },
-                      { name: "제작 중", color: "#8b5cf6", count: 1 },
-                      { name: "게시", color: "#10b981", count: 1 },
-                      { name: "결제", color: "#14b8a6", count: 0 },
-                    ].map((col) => (
-                      <div key={col.name}>
-                        <div className="flex items-center gap-2 px-2 py-2 mb-2">
-                          <div
-                            className="w-2 h-2 rounded-full"
-                            style={{ backgroundColor: col.color }}
-                          />
-                          <span className="text-xs font-medium text-zinc-400">{col.name}</span>
-                          <span className="text-xs text-zinc-600">{col.count}</span>
-                        </div>
-                        <div className="space-y-2 min-h-[100px]">
-                          {[...Array(col.count)].map((_, j) => (
-                            <div
-                              key={j}
-                              className="bg-zinc-800/50 rounded-lg p-3 border border-zinc-700/50"
-                            >
-                              <div className="h-2 bg-zinc-700 rounded w-4/5 mb-2" />
-                              <div className="h-1.5 bg-zinc-700/50 rounded w-3/5" />
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
+                <div className="flex-1 flex justify-center">
+                  <div className="px-4 py-1 rounded-md bg-zinc-800 text-xs text-zinc-500">
+                    app.sponsortracker.io
                   </div>
                 </div>
               </div>
+
+              {/* Dashboard mockup */}
+              <div className="p-6 bg-zinc-950">
+                {/* Stats row */}
+                <div className="grid grid-cols-4 gap-4 mb-6">
+                  {[
+                    { label: "이번 달 수익", value: "₩4,500,000", change: "+23%" },
+                    { label: "진행 중", value: "8건", icon: Calendar },
+                    { label: "완료", value: "24건", icon: CheckCircle2 },
+                    { label: "브랜드", value: "12개", icon: Users },
+                  ].map((stat, i) => (
+                    <div
+                      key={i}
+                      className="bg-zinc-900 rounded-xl p-4 border border-white/5"
+                    >
+                      <p className="text-xs text-zinc-500 mb-2">{stat.label}</p>
+                      <p className="text-xl font-semibold text-white flex items-center gap-2">
+                        {stat.value}
+                        {stat.change && (
+                          <span className="text-xs text-emerald-400 font-normal">{stat.change}</span>
+                        )}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Kanban preview */}
+                <div className="grid grid-cols-6 gap-3">
+                  {[
+                    { name: "피칭", color: "#71717a", count: 3 },
+                    { name: "협상 중", color: "#f59e0b", count: 2 },
+                    { name: "계약", color: "#3b82f6", count: 2 },
+                    { name: "제작 중", color: "#8b5cf6", count: 1 },
+                    { name: "게시", color: "#10b981", count: 1 },
+                    { name: "결제", color: "#06b6d4", count: 0 },
+                  ].map((col) => (
+                    <div key={col.name}>
+                      <div className="flex items-center gap-2 px-2 py-2 mb-2">
+                        <div
+                          className="w-2 h-2 rounded-full"
+                          style={{ backgroundColor: col.color }}
+                        />
+                        <span className="text-xs font-medium text-zinc-400">{col.name}</span>
+                      </div>
+                      <div className="space-y-2 min-h-[80px]">
+                        {[...Array(col.count)].map((_, j) => (
+                          <div
+                            key={j}
+                            className="bg-zinc-900 rounded-lg p-3 border border-white/5"
+                          >
+                            <div className="h-2 bg-zinc-800 rounded w-4/5 mb-2" />
+                            <div className="h-1.5 bg-zinc-800/50 rounded w-3/5" />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-          </FadeInWhenVisible>
-        </div>
+          </div>
+        </motion.div>
       </section>
 
-      {/* Stats */}
-      <section className="py-16 px-6 border-y border-zinc-800/50">
+      {/* Logos Section */}
+      <section className="py-16 px-6 border-y border-white/5">
         <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {[
-              { value: "₩2억+", label: "관리된 협찬 금액" },
-              { value: "500+", label: "크리에이터" },
-              { value: "1,200+", label: "완료된 딜" },
-              { value: "99%", label: "고객 만족도" },
-            ].map((stat, i) => (
-              <FadeInWhenVisible key={i} delay={i * 0.1}>
-                <div>
-                  <p className="text-2xl md:text-3xl font-bold text-white mb-1">{stat.value}</p>
-                  <p className="text-sm text-zinc-500">{stat.label}</p>
-                </div>
-              </FadeInWhenVisible>
+          <p className="text-center text-sm text-zinc-500 mb-8">
+            500+ 크리에이터가 신뢰하는 플랫폼
+          </p>
+          <div className="grid grid-cols-4 gap-8 items-center opacity-50">
+            {["YouTube", "Instagram", "TikTok", "Blog"].map((platform) => (
+              <div key={platform} className="text-center text-zinc-400 font-medium">
+                {platform}
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Features */}
+      {/* Features Section */}
       <section id="features" className="py-24 px-6">
         <div className="max-w-6xl mx-auto">
-          <FadeInWhenVisible className="text-center mb-16">
-            <p className="text-sm font-medium text-violet-400 mb-4">FEATURES</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              필요한 기능만 담았습니다
-            </h2>
-            <p className="text-lg text-zinc-400 max-w-2xl mx-auto">
+          {/* Section header */}
+          <div className="text-center mb-16">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-sm font-medium text-blue-400 mb-4"
+            >
+              FEATURES
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-3xl md:text-4xl font-bold mb-4"
+              style={{ fontFamily: "Georgia, serif" }}
+            >
+              필요한 모든 기능
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="text-lg text-zinc-400 max-w-xl mx-auto"
+            >
               복잡한 기능은 빼고, 크리에이터에게 정말 필요한 것만
-            </p>
-          </FadeInWhenVisible>
+            </motion.p>
+          </div>
 
+          {/* Feature grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((feature, i) => (
-              <FadeInWhenVisible key={i} delay={i * 0.1}>
-                <div className="group p-6 rounded-2xl bg-zinc-900/50 border border-zinc-800 hover:border-zinc-700 transition-all duration-300">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-4`}>
-                    <feature.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
-                  <p className="text-sm text-zinc-400 leading-relaxed">{feature.description}</p>
+            {[
+              {
+                icon: LayoutDashboard,
+                title: "칸반 보드",
+                description: "피칭부터 결제까지, 드래그 앤 드롭으로 딜 상태를 관리하세요",
+              },
+              {
+                icon: Bell,
+                title: "마감일 알림",
+                description: "중요한 마감일 3일 전 이메일로 알려드립니다",
+              },
+              {
+                icon: TrendingUp,
+                title: "수익 분석",
+                description: "월별, 브랜드별 수익을 차트로 한눈에 파악하세요",
+              },
+              {
+                icon: Users,
+                title: "브랜드 CRM",
+                description: "담당자 연락처와 협업 히스토리를 관리하세요",
+              },
+              {
+                icon: BarChart3,
+                title: "리포트",
+                description: "협찬 성과를 시각화된 리포트로 확인하세요",
+              },
+              {
+                icon: FileText,
+                title: "계약 관리",
+                description: "계약서와 관련 문서를 한 곳에서 관리하세요",
+              },
+            ].map((feature, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="group p-6 rounded-2xl border border-white/5 bg-zinc-950 hover:bg-zinc-900 hover:border-white/10 transition-all duration-300"
+              >
+                <div className="w-12 h-12 rounded-xl bg-zinc-900 group-hover:bg-zinc-800 border border-white/5 flex items-center justify-center mb-4 transition-colors">
+                  <feature.icon className="w-6 h-6 text-blue-400" />
                 </div>
-              </FadeInWhenVisible>
+                <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
+                <p className="text-sm text-zinc-400 leading-relaxed">{feature.description}</p>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* How it works */}
-      <section id="how-it-works" className="py-24 px-6 bg-zinc-900/30">
+      <section id="how-it-works" className="py-24 px-6 border-t border-white/5">
         <div className="max-w-4xl mx-auto">
-          <FadeInWhenVisible className="text-center mb-16">
-            <p className="text-sm font-medium text-violet-400 mb-4">HOW IT WORKS</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <div className="text-center mb-16">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-sm font-medium text-blue-400 mb-4"
+            >
+              HOW IT WORKS
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-3xl md:text-4xl font-bold mb-4"
+              style={{ fontFamily: "Georgia, serif" }}
+            >
               3단계로 시작하세요
-            </h2>
-          </FadeInWhenVisible>
+            </motion.h2>
+          </div>
 
-          <div className="relative">
-            {/* Connection line */}
-            <div className="hidden md:block absolute top-8 left-[16.67%] right-[16.67%] h-px bg-gradient-to-r from-zinc-800 via-violet-500/30 to-zinc-800" />
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {steps.map((step, i) => (
-                <FadeInWhenVisible key={i} delay={i * 0.15}>
-                  <div className="text-center relative">
-                    <div className="w-16 h-16 rounded-full bg-zinc-900 border-2 border-zinc-700 flex items-center justify-center mx-auto mb-6 relative z-10">
-                      <span className="text-lg font-bold text-violet-400">{step.number}</span>
-                    </div>
-                    <h3 className="text-xl font-semibold text-white mb-2">{step.title}</h3>
-                    <p className="text-zinc-400 text-sm">{step.description}</p>
-                  </div>
-                </FadeInWhenVisible>
-              ))}
-            </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                step: "01",
+                title: "무료 가입",
+                description: "이메일 또는 구글 계정으로 30초 만에 가입",
+              },
+              {
+                step: "02",
+                title: "브랜드 & 딜 등록",
+                description: "협업 브랜드와 진행 중인 딜을 등록",
+              },
+              {
+                step: "03",
+                title: "칸반으로 관리",
+                description: "드래그 앤 드롭으로 상태 업데이트",
+              },
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.15 }}
+                className="text-center"
+              >
+                <div className="w-16 h-16 rounded-full border-2 border-white/10 flex items-center justify-center mx-auto mb-6">
+                  <span className="text-2xl font-bold text-blue-400">{item.step}</span>
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-2">{item.title}</h3>
+                <p className="text-zinc-400 text-sm">{item.description}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="py-24 px-6">
+      <section id="pricing" className="py-24 px-6 border-t border-white/5">
         <div className="max-w-4xl mx-auto">
-          <FadeInWhenVisible className="text-center mb-16">
-            <p className="text-sm font-medium text-violet-400 mb-4">PRICING</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <div className="text-center mb-16">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-sm font-medium text-blue-400 mb-4"
+            >
+              PRICING
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-3xl md:text-4xl font-bold mb-4"
+              style={{ fontFamily: "Georgia, serif" }}
+            >
               심플한 요금제
-            </h2>
-            <p className="text-lg text-zinc-400">
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="text-lg text-zinc-400"
+            >
               무료로 시작하고, 필요할 때 업그레이드하세요
-            </p>
-          </FadeInWhenVisible>
+            </motion.p>
+          </div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
             {/* Free */}
-            <FadeInWhenVisible>
-              <div className="p-8 rounded-2xl bg-zinc-900/50 border border-zinc-800 h-full flex flex-col">
-                <h3 className="text-xl font-semibold text-white mb-2">Free</h3>
-                <p className="text-sm text-zinc-400 mb-6">개인 크리에이터에게 적합</p>
-                <div className="text-4xl font-bold text-white mb-8">
-                  ₩0<span className="text-base font-normal text-zinc-500">/월</span>
-                </div>
-                <ul className="space-y-4 mb-8 flex-1">
-                  {["딜 10개까지", "브랜드 5개까지", "칸반 보드", "기본 분석"].map((feature) => (
-                    <li key={feature} className="flex items-center gap-3 text-sm text-zinc-300">
-                      <Check className="w-4 h-4 text-violet-400" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <Link href="/signup">
-                  <Button variant="outline" className="w-full h-12 border-zinc-700 bg-transparent hover:bg-zinc-800 text-white">
-                    무료로 시작
-                  </Button>
-                </Link>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="p-8 rounded-2xl border border-white/5 bg-zinc-950"
+            >
+              <h3 className="text-xl font-semibold text-white mb-2">Free</h3>
+              <p className="text-sm text-zinc-400 mb-6">개인 크리에이터에게 적합</p>
+              <div className="text-4xl font-bold text-white mb-8">
+                ₩0<span className="text-base font-normal text-zinc-500">/월</span>
               </div>
-            </FadeInWhenVisible>
+              <ul className="space-y-4 mb-8">
+                {["딜 10개까지", "브랜드 5개까지", "칸반 보드", "기본 분석"].map((feature) => (
+                  <li key={feature} className="flex items-center gap-3 text-sm text-zinc-300">
+                    <CheckCircle2 className="w-4 h-4 text-blue-400" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/signup">
+                <button className="w-full py-3.5 text-sm font-medium border border-white/10 rounded-full hover:bg-white/5 transition-colors">
+                  무료로 시작
+                </button>
+              </Link>
+            </motion.div>
 
             {/* Pro */}
-            <FadeInWhenVisible delay={0.1}>
-              <div className="relative p-8 rounded-2xl bg-gradient-to-b from-violet-500/10 to-transparent border-2 border-violet-500/30 h-full flex flex-col">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-violet-500 rounded-full text-xs font-medium text-white">
-                  추천
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-2">Pro</h3>
-                <p className="text-sm text-zinc-400 mb-6">본격적인 크리에이터를 위해</p>
-                <div className="text-4xl font-bold text-white mb-8">
-                  ₩9,900<span className="text-base font-normal text-zinc-500">/월</span>
-                </div>
-                <ul className="space-y-4 mb-8 flex-1">
-                  {["딜 무제한", "브랜드 무제한", "마감일 이메일 알림", "상세 수익 분석", "데이터 내보내기", "우선 지원"].map((feature) => (
-                    <li key={feature} className="flex items-center gap-3 text-sm text-zinc-300">
-                      <Check className="w-4 h-4 text-violet-400" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <Link href="/signup">
-                  <Button className="w-full h-12 bg-violet-500 hover:bg-violet-600 text-white">
-                    Pro 시작하기
-                  </Button>
-                </Link>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="relative p-8 rounded-2xl border-2 border-blue-500/30 bg-gradient-to-b from-blue-500/5 to-transparent"
+            >
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-blue-500 rounded-full text-xs font-medium text-white">
+                추천
               </div>
-            </FadeInWhenVisible>
+              <h3 className="text-xl font-semibold text-white mb-2">Pro</h3>
+              <p className="text-sm text-zinc-400 mb-6">본격적인 크리에이터를 위해</p>
+              <div className="text-4xl font-bold text-white mb-8">
+                ₩9,900<span className="text-base font-normal text-zinc-500">/월</span>
+              </div>
+              <ul className="space-y-4 mb-8">
+                {["딜 무제한", "브랜드 무제한", "마감일 이메일 알림", "상세 수익 분석", "데이터 내보내기", "우선 지원"].map((feature) => (
+                  <li key={feature} className="flex items-center gap-3 text-sm text-zinc-300">
+                    <CheckCircle2 className="w-4 h-4 text-blue-400" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/signup">
+                <button className="w-full py-3.5 text-sm font-medium bg-white text-black rounded-full hover:bg-zinc-200 transition-colors">
+                  Pro 시작하기
+                </button>
+              </Link>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="py-24 px-6 bg-zinc-900/30">
+      <section className="py-24 px-6 border-t border-white/5">
         <div className="max-w-2xl mx-auto">
-          <FadeInWhenVisible className="text-center mb-16">
-            <p className="text-sm font-medium text-violet-400 mb-4">FAQ</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <div className="text-center mb-16">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-sm font-medium text-blue-400 mb-4"
+            >
+              FAQ
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-3xl md:text-4xl font-bold mb-4"
+              style={{ fontFamily: "Georgia, serif" }}
+            >
               자주 묻는 질문
-            </h2>
-          </FadeInWhenVisible>
+            </motion.h2>
+          </div>
 
-          <div className="space-y-4">
-            {faqs.map((faq, i) => (
-              <FadeInWhenVisible key={i} delay={i * 0.1}>
-                <div className="rounded-xl border border-zinc-800 bg-zinc-900/50 overflow-hidden">
-                  <button
-                    className="w-full px-6 py-4 flex items-center justify-between text-left"
-                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  >
-                    <span className="font-medium text-white">{faq.question}</span>
-                    <ChevronDown
-                      className={`w-5 h-5 text-zinc-400 transition-transform ${
-                        openFaq === i ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
-                  {openFaq === i && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      transition={{ duration: 0.2 }}
-                      className="px-6 pb-4"
-                    >
-                      <p className="text-sm text-zinc-400 leading-relaxed">{faq.answer}</p>
-                    </motion.div>
-                  )}
-                </div>
-              </FadeInWhenVisible>
+          <div className="space-y-8">
+            {[
+              {
+                q: "무료로 사용할 수 있나요?",
+                a: "네! Free 플랜으로 딜 10개, 브랜드 5개까지 무료로 사용하실 수 있습니다.",
+              },
+              {
+                q: "내 데이터는 안전한가요?",
+                a: "모든 데이터는 암호화되어 저장되며, 업계 표준 보안 프로토콜을 따릅니다.",
+              },
+              {
+                q: "어떤 플랫폼을 지원하나요?",
+                a: "유튜브, 인스타그램, 블로그, 틱톡 등 모든 플랫폼의 스폰서십을 관리할 수 있습니다.",
+              },
+              {
+                q: "환불 정책은 어떻게 되나요?",
+                a: "구매 후 14일 이내 요청 시 전액 환불해드립니다.",
+              },
+            ].map((faq, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+              >
+                <h3 className="font-semibold text-white mb-2">{faq.q}</h3>
+                <p className="text-sm text-zinc-400 leading-relaxed">{faq.a}</p>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Final CTA */}
-      <section className="py-24 px-6">
-        <div className="max-w-4xl mx-auto">
-          <FadeInWhenVisible>
-            <div className="relative rounded-2xl overflow-hidden">
-              {/* Gradient background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-600" />
-              <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDBoNjB2NjBIMHoiLz48cGF0aCBkPSJNMzAgMzBtLTIgMGEyIDIgMCAxIDAgNCAwYTIgMiAwIDEgMC00IDB6IiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz48L2c+PC9zdmc+')] opacity-30" />
-
-              <div className="relative px-8 py-16 md:py-20 text-center">
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                  스폰서십 관리, 지금 시작하세요
-                </h2>
-                <p className="text-lg text-white/80 mb-8 max-w-xl mx-auto">
-                  더 이상 엑셀과 메모장에서 시간 낭비하지 마세요.
-                </p>
-                <Link href="/signup">
-                  <Button size="lg" className="text-base px-10 h-14 bg-white text-violet-600 hover:bg-zinc-100">
-                    무료로 시작하기
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </FadeInWhenVisible>
+      <section className="py-24 px-6 border-t border-white/5">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl font-bold mb-4"
+            style={{ fontFamily: "Georgia, serif" }}
+          >
+            지금 시작하세요
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-lg text-zinc-400 mb-8"
+          >
+            더 이상 엑셀과 메모장에서 시간 낭비하지 마세요.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
+            <Link href="/signup">
+              <button className="group px-8 py-4 text-base font-medium bg-white text-black rounded-full hover:bg-zinc-200 transition-all flex items-center gap-2 mx-auto">
+                무료로 시작하기
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </Link>
+          </motion.div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-zinc-800/50 py-12 px-6">
+      <footer className="border-t border-white/5 py-12 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm">
+              <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-black font-bold text-sm">
                 S
               </div>
-              <span className="font-semibold text-white">Sponsor Tracker</span>
+              <span className="font-medium text-white">Sponsor Tracker</span>
             </div>
             <div className="flex flex-wrap justify-center gap-6 text-sm text-zinc-500">
               <Link href="/privacy" className="hover:text-white transition-colors">개인정보처리방침</Link>
@@ -593,8 +655,8 @@ export default function Home() {
               <a href="mailto:support@sponsortracker.app" className="hover:text-white transition-colors">문의하기</a>
             </div>
           </div>
-          <div className="mt-8 pt-8 border-t border-zinc-800/50 text-center text-sm text-zinc-600">
-            <p>&copy; 2025 Sponsor Tracker. All rights reserved.</p>
+          <div className="mt-8 pt-8 border-t border-white/5 text-center text-sm text-zinc-600">
+            <p>© 2025 Sponsor Tracker. All rights reserved.</p>
           </div>
         </div>
       </footer>
