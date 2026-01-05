@@ -118,9 +118,9 @@ export function BrandForm({ brand }: BrandFormProps) {
       } else {
         await createBrand(data);
       }
-    } catch (err) {
-      // Next.js redirect throws an error, so we need to rethrow it
-      if (err instanceof Error && err.message === "NEXT_REDIRECT") {
+    } catch (err: unknown) {
+      // Next.js redirect throws an error with digest, so we need to rethrow it
+      if (err && typeof err === "object" && "digest" in err) {
         throw err;
       }
       setError(err instanceof Error ? err.message : "오류가 발생했습니다");

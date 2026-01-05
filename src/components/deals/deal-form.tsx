@@ -69,8 +69,9 @@ export function DealForm({ deal, brands }: DealFormProps) {
     setError(null);
 
     const formData = new FormData(e.currentTarget);
+    const brandId = formData.get("brand_id") as string;
     const data: DealFormData = {
-      brand_id: formData.get("brand_id") as string || undefined,
+      brand_id: brandId && brandId !== "none" ? brandId : undefined,
       title: formData.get("title") as string,
       status: formData.get("status") as DealStatus,
       amount: parseFloat(formData.get("amount") as string) || 0,
@@ -102,9 +103,9 @@ export function DealForm({ deal, brands }: DealFormProps) {
       } else {
         await createDeal(data);
       }
-    } catch (err) {
-      // Next.js redirect throws an error, so we need to rethrow it
-      if (err instanceof Error && err.message === "NEXT_REDIRECT") {
+    } catch (err: unknown) {
+      // Next.js redirect throws an error with digest, so we need to rethrow it
+      if (err && typeof err === "object" && "digest" in err) {
         throw err;
       }
       setError(err instanceof Error ? err.message : "오류가 발생했습니다");
@@ -142,12 +143,12 @@ export function DealForm({ deal, brands }: DealFormProps) {
                 label="브랜드"
                 hint={brands.length === 0 ? "브랜드를 먼저 추가하세요" : "협업 브랜드 선택"}
               >
-                <Select name="brand_id" defaultValue={deal?.brand_id || ""}>
+                <Select name="brand_id" defaultValue={deal?.brand_id || "none"}>
                   <SelectTrigger>
                     <SelectValue placeholder="브랜드 선택" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">브랜드 없음</SelectItem>
+                    <SelectItem value="none">브랜드 없음</SelectItem>
                     {brands.map((brand) => (
                       <SelectItem key={brand.id} value={brand.id}>
                         {brand.name}
