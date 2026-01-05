@@ -30,8 +30,8 @@ export function EmptyState({
   const content = (
     <>
       {icon && (
-        <div className="w-16 h-16 rounded-2xl bg-violet-500/10 flex items-center justify-center mb-4 mx-auto">
-          <div className="text-violet-400">{icon}</div>
+        <div className="w-16 h-16 rounded-2xl bg-cyan-500/10 flex items-center justify-center mb-4 mx-auto">
+          <div className="text-cyan-400">{icon}</div>
         </div>
       )}
       <h3 className="text-lg font-semibold text-foreground mb-2">{title}</h3>

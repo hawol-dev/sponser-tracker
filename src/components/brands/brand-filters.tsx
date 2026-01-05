@@ -124,10 +124,10 @@ export function BrandFilters({
           value={currentCategory || "all"}
           onValueChange={handleCategoryChange}
         >
-          <SelectTrigger className="w-[130px]">
+          <SelectTrigger className="w-[160px]">
             <SelectValue placeholder="카테고리" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent position="popper" sideOffset={4}>
             <SelectItem value="all">전체 카테고리</SelectItem>
             {Object.entries(CATEGORY_LABELS).map(([value, label]) => (
               <SelectItem key={value} value={value}>
@@ -138,11 +138,11 @@ export function BrandFilters({
         </Select>
 
         <Select value={currentSort} onValueChange={handleSortChange}>
-          <SelectTrigger className="w-[140px]">
+          <SelectTrigger className="w-[150px]">
             <ArrowUpDown className="h-4 w-4 mr-2" />
             <SelectValue placeholder="정렬" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent position="popper" sideOffset={4}>
             {SORT_OPTIONS.map((option) => (
               <SelectItem key={option.value} value={option.value}>
                 {option.label}

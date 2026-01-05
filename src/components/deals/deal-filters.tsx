@@ -145,7 +145,7 @@ export function DealFilters({
           <SelectTrigger className="w-[130px]">
             <SelectValue placeholder="상태" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent position="popper" sideOffset={4}>
             <SelectItem value="all">전체 상태</SelectItem>
             {Object.entries(DEAL_STATUS_LABELS).map(([value, label]) => (
               <SelectItem key={value} value={value}>
@@ -159,10 +159,10 @@ export function DealFilters({
           value={currentBrandId || "all"}
           onValueChange={handleBrandChange}
         >
-          <SelectTrigger className="w-[140px]">
+          <SelectTrigger className="w-[150px]">
             <SelectValue placeholder="브랜드" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent position="popper" sideOffset={4}>
             <SelectItem value="all">전체 브랜드</SelectItem>
             {brands.map((brand) => (
               <SelectItem key={brand.id} value={brand.id}>
@@ -173,11 +173,11 @@ export function DealFilters({
         </Select>
 
         <Select value={currentSort} onValueChange={handleSortChange}>
-          <SelectTrigger className="w-[140px]">
+          <SelectTrigger className="w-[150px]">
             <ArrowUpDown className="h-4 w-4 mr-2" />
             <SelectValue placeholder="정렬" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent position="popper" sideOffset={4}>
             {SORT_OPTIONS.map((option) => (
               <SelectItem key={option.value} value={option.value}>
                 {option.label}

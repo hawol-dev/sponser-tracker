@@ -61,9 +61,9 @@ const steps = [
         <path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5" />
       </svg>
     ),
-    color: "from-violet-500 to-purple-500",
-    bgColor: "bg-violet-500/10",
-    borderColor: "border-violet-500/20",
+    color: "from-cyan-500 to-purple-500",
+    bgColor: "bg-cyan-500/10",
+    borderColor: "border-cyan-500/20",
   },
   {
     step: 3,
@@ -100,13 +100,13 @@ export function WelcomeCard({ userName }: WelcomeCardProps) {
   return (
     <div className="space-y-6">
       {/* Welcome Message */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-violet-600/20 via-purple-600/10 to-indigo-600/20 border border-white/[0.08] p-8">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-violet-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-        <div className="absolute bottom-0 left-0 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-cyan-600/20 via-purple-600/10 to-cyan-600/20 border border-white/[0.08] p-8">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
 
         <div className="relative">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-500 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-cyan-500 flex items-center justify-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -143,7 +143,7 @@ export function WelcomeCard({ userName }: WelcomeCardProps) {
         <div className="grid gap-4 sm:grid-cols-3">
           {steps.map((item) => (
             <Link key={item.step} href={item.href}>
-              <Card className={`group cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:shadow-violet-500/5 border ${item.borderColor} hover:border-violet-500/30`}>
+              <Card className={`group cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:shadow-cyan-500/5 border ${item.borderColor} hover:border-cyan-500/30`}>
                 <CardContent className="p-5">
                   <div className="flex items-start gap-4">
                     <div className={`w-10 h-10 rounded-xl ${item.bgColor} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform`}>
@@ -164,7 +164,7 @@ export function WelcomeCard({ userName }: WelcomeCardProps) {
                           strokeWidth="2"
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          className="opacity-0 group-hover:opacity-100 transition-opacity text-violet-400"
+                          className="opacity-0 group-hover:opacity-100 transition-opacity text-cyan-400"
                         >
                           <path d="M5 12h14" />
                           <path d="m12 5 7 7-7 7" />

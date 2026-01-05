@@ -16,7 +16,7 @@ export function ShineButton({ children, className = "", onClick }: ShineButtonPr
   return (
     <motion.button
       className={cn(
-        "relative overflow-hidden rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 px-8 py-3 text-white font-medium",
+        "relative overflow-hidden rounded-lg bg-gradient-to-r from-cyan-600 to-cyan-600 px-8 py-3 text-white font-medium",
         className
       )}
       onHoverStart={() => setIsHovered(true)}
@@ -140,7 +140,7 @@ export function GradientBorderButton({ children, className = "", onClick }: Grad
       onClick={onClick}
     >
       <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-500"
+        className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-purple-500 to-cyan-500"
         animate={{
           backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
         }}

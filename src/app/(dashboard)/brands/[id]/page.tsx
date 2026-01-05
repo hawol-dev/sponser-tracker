@@ -91,23 +91,13 @@ export default async function BrandDetailPage({ params }: BrandDetailPageProps) 
                 {brand.contact_email && (
                   <div>
                     <p className="text-sm text-muted-foreground">이메일</p>
-                    <a
-                      href={`mailto:${brand.contact_email}`}
-                      className="font-medium text-primary hover:underline"
-                    >
-                      {brand.contact_email}
-                    </a>
+                    <p className="font-medium">{brand.contact_email}</p>
                   </div>
                 )}
                 {brand.contact_phone && (
                   <div>
                     <p className="text-sm text-muted-foreground">전화번호</p>
-                    <a
-                      href={`tel:${brand.contact_phone}`}
-                      className="font-medium text-primary hover:underline"
-                    >
-                      {brand.contact_phone}
-                    </a>
+                    <p className="font-medium">{brand.contact_phone}</p>
                   </div>
                 )}
               </>

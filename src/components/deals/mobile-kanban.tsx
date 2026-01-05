@@ -99,7 +99,7 @@ export function MobileKanban({ deals: initialDeals, onDealsChange }: MobileKanba
               className={`
                 flex items-center gap-2 px-3 py-2 rounded-lg whitespace-nowrap transition-all
                 ${isActive
-                  ? "bg-violet-500/20 border border-violet-500/30"
+                  ? "bg-cyan-500/20 border border-cyan-500/30"
                   : "bg-white/[0.04] border border-white/[0.06] opacity-60"
                 }
               `}
@@ -128,7 +128,7 @@ export function MobileKanban({ deals: initialDeals, onDealsChange }: MobileKanba
             <div
               key={index}
               className={`w-2 h-2 rounded-full transition-colors ${
-                index === currentIndex ? "bg-violet-500" : "bg-white/20"
+                index === currentIndex ? "bg-cyan-500" : "bg-white/20"
               }`}
             />
           ))}
@@ -163,7 +163,7 @@ export function MobileKanban({ deals: initialDeals, onDealsChange }: MobileKanba
                     {deal.brand && (
                       <p className="text-xs text-muted-foreground mb-2">{deal.brand.name}</p>
                     )}
-                    <p className="text-sm font-bold bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
+                    <p className="text-sm font-bold bg-gradient-to-r from-cyan-400 to-cyan-400 bg-clip-text text-transparent">
                       {formatAmount(deal.amount, deal.currency)}
                     </p>
                     <div className="flex flex-wrap gap-1.5 mt-2">

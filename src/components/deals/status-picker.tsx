@@ -91,7 +91,7 @@ export function StatusPicker({
                 <div className={`w-3 h-3 rounded-full ${STATUS_COLORS[status]}`} />
                 <span className="flex-1 text-left">{DEAL_STATUS_LABELS[status]}</span>
                 {isSelected && !isUpdating && (
-                  <Check className="h-4 w-4 text-violet-500" />
+                  <Check className="h-4 w-4 text-cyan-500" />
                 )}
                 {isUpdating && (
                   <Loader2 className="h-4 w-4 animate-spin" />
