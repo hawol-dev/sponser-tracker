@@ -1,5 +1,18 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "환불정책",
+  description: "Sponsor Tracker Pro 플랜 환불정책입니다. 환불 가능 기간, 방법, 금액 등을 확인하세요.",
+  openGraph: {
+    title: "환불정책 | Sponsor Tracker",
+    description: "Sponsor Tracker Pro 플랜 환불정책입니다.",
+  },
+  alternates: {
+    canonical: "/refund",
+  },
+};
 
 export default function RefundPage() {
   return (

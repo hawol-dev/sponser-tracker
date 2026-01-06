@@ -1,5 +1,18 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "개인정보처리방침",
+  description: "Sponsor Tracker의 개인정보처리방침입니다. 수집하는 정보, 이용 목적, 보관 기간 등을 확인하세요.",
+  openGraph: {
+    title: "개인정보처리방침 | Sponsor Tracker",
+    description: "Sponsor Tracker의 개인정보처리방침입니다.",
+  },
+  alternates: {
+    canonical: "/privacy",
+  },
+};
 
 export default function PrivacyPage() {
   return (

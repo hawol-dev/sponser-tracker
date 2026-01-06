@@ -1,5 +1,18 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "이용약관",
+  description: "Sponsor Tracker 서비스 이용약관입니다. 서비스 이용 조건과 회원의 권리 및 의무를 확인하세요.",
+  openGraph: {
+    title: "이용약관 | Sponsor Tracker",
+    description: "Sponsor Tracker 서비스 이용약관입니다.",
+  },
+  alternates: {
+    canonical: "/terms",
+  },
+};
 
 export default function TermsPage() {
   return (

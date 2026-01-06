@@ -60,7 +60,8 @@ export default function Home() {
       </div>
 
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-black/80 backdrop-blur-xl">
+      <header>
+        <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-black/80 backdrop-blur-xl" role="navigation" aria-label="메인 네비게이션">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
@@ -142,9 +143,11 @@ export default function Home() {
             </div>
           </motion.div>
         )}
-      </nav>
+        </nav>
+      </header>
 
-      {/* Hero Section - Left aligned */}
+      <main>
+        {/* Hero Section - Left aligned */}
       <section className="relative pt-40 pb-24 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-3xl">
@@ -545,6 +548,7 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+      </main>
 
       {/* Footer */}
       <footer className="relative border-t border-white/5 py-16 px-6 overflow-hidden">
