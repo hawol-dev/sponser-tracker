@@ -9,7 +9,8 @@
       "WebFetch(domain:cal.com)",
       "WebFetch(domain:raycast.com)",
       "WebFetch(domain:dub.co)",
-      "WebFetch(domain:resend.com)"
+      "WebFetch(domain:resend.com)",
+      "Bash(ls:*)"
     ]
   }
 }
