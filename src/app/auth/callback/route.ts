@@ -9,11 +9,23 @@ export async function GET(request: Request) {
   if (code) {
     const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
+
     if (!error) {
       return NextResponse.redirect(`${origin}${next}`);
     }
+
+    // 에러 로깅
+    console.error("[Auth Callback Error]", {
+      error: error.message,
+      code: error.code,
+      timestamp: new Date().toISOString(),
+    });
+
+    const errorType = error.message.includes("expired") ? "expired" : "invalid";
+    return NextResponse.redirect(`${origin}/login?error=auth_${errorType}`);
   }
 
-  // 에러 시 로그인 페이지로 리다이렉트
+  // code가 없는 경우
+  console.error("[Auth Callback] No code provided in callback");
   return NextResponse.redirect(`${origin}/login?error=auth_callback_error`);
 }

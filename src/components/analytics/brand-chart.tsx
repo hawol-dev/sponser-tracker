@@ -35,7 +35,17 @@ const formatRevenue = (value: number) => {
   return value.toLocaleString();
 };
 
-const CustomTooltip = ({ active, payload }: any) => {
+interface TooltipPayload {
+  value: number;
+  payload: BrandRevenue;
+}
+
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: TooltipPayload[];
+}
+
+const CustomTooltip = ({ active, payload }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     return (

@@ -3,6 +3,9 @@
 import { createClient } from "@/lib/supabase/server";
 import type { Deal, DealStatus } from "@/types/database";
 
+// 환율 설정 (환경변수 또는 기본값 사용)
+const USD_TO_KRW = Number(process.env.USD_TO_KRW_RATE) || 1350;
+
 export interface MonthlyRevenue {
   month: string;
   revenue: number;
@@ -68,7 +71,7 @@ export async function getMonthlyRevenue(): Promise<MonthlyRevenue[]> {
 
     if (monthlyMap.has(key)) {
       const current = monthlyMap.get(key)!;
-      const amount = deal.currency === "USD" ? deal.amount * 1400 : deal.amount;
+      const amount = deal.currency === "USD" ? deal.amount * USD_TO_KRW : deal.amount;
       current.revenue += amount;
       current.count += 1;
     }

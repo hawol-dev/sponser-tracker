@@ -31,9 +31,13 @@ export async function getBrands(options?: {
     .eq("user_id", user.id)
     .order("created_at", { ascending: false });
 
-  // 검색어 필터
+  // 검색어 필터 (SQL Injection 방지를 위해 특수문자 이스케이프)
   if (options?.search) {
-    query = query.ilike("name", `%${options.search}%`);
+    const sanitized = options.search
+      .replace(/\\/g, "\\\\")
+      .replace(/%/g, "\\%")
+      .replace(/_/g, "\\_");
+    query = query.ilike("name", `%${sanitized}%`);
   }
 
   // 카테고리 필터

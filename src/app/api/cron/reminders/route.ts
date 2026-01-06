@@ -6,9 +6,17 @@ import { sendDeadlineReminder } from "@/lib/email";
 // vercel.json에 설정 필요
 
 export async function GET(request: Request) {
+  // 환경 변수 검증
+  const cronSecret = process.env.CRON_SECRET;
+  if (!cronSecret) {
+    console.error("[Cron] CRON_SECRET is not configured");
+    return NextResponse.json({ error: "Server misconfigured" }, { status: 500 });
+  }
+
   // Vercel Cron 인증 확인
   const authHeader = request.headers.get("authorization");
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+  if (authHeader !== `Bearer ${cronSecret}`) {
+    console.error("[Cron] Unauthorized request attempt");
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

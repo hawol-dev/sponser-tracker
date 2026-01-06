@@ -31,8 +31,19 @@ const formatRevenue = (value: number) => {
   return value.toLocaleString();
 };
 
-const CustomTooltip = ({ active, payload, label }: any) => {
-  if (active && payload && payload.length) {
+interface TooltipPayload {
+  value: number;
+  payload: MonthlyRevenue;
+}
+
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: TooltipPayload[];
+  label?: string;
+}
+
+const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
+  if (active && payload && payload.length && label) {
     const [year, month] = label.split("-");
     return (
       <div className="bg-zinc-900 border border-white/10 rounded-lg shadow-lg p-3">

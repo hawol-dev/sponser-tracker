@@ -43,22 +43,21 @@ export async function getDeals(options?: {
     query = query.eq("brand_id", options.brandId);
   }
 
+  // 검색어 필터 (DB에서 직접 필터링)
+  if (options?.search) {
+    const sanitized = options.search
+      .replace(/\\/g, "\\\\")
+      .replace(/%/g, "\\%")
+      .replace(/_/g, "\\_");
+    // 제목 또는 브랜드명으로 검색 (대소문자 무시)
+    query = query.or(`title.ilike.%${sanitized}%,brand.name.ilike.%${sanitized}%`);
+  }
+
   const { data, error } = await query;
 
   if (error) throw error;
 
-  // 검색어가 있으면 클라이언트 측에서 필터링 (제목 + 브랜드명)
-  let filteredData = data as Deal[];
-  if (options?.search) {
-    const searchLower = options.search.toLowerCase();
-    filteredData = filteredData.filter((deal) => {
-      const titleMatch = deal.title.toLowerCase().includes(searchLower);
-      const brandMatch = deal.brand?.name?.toLowerCase().includes(searchLower);
-      return titleMatch || brandMatch;
-    });
-  }
-
-  return filteredData;
+  return data as Deal[];
 }
 
 // 단일 딜 조회
