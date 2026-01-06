@@ -50,7 +50,7 @@ export default function TermsPage() {
               서비스는 다음과 같은 기능을 제공합니다:
             </p>
             <ul className="list-disc list-inside text-zinc-400 space-y-2">
-              <li>협찬 딜 관리 (칸반 보드)</li>
+              <li>협찬 관리 (칸반 보드)</li>
               <li>브랜드 정보 관리</li>
               <li>수익 분석 및 통계</li>
               <li>마감일 알림 서비스</li>
@@ -72,7 +72,7 @@ export default function TermsPage() {
               서비스는 무료 플랜과 유료 플랜(Pro)으로 구분됩니다:
             </p>
             <ul className="list-disc list-inside text-zinc-400 space-y-2">
-              <li>Free: 기본 기능, 딜 10개 제한</li>
+              <li>Free: 기본 기능, 협찬 10개 제한</li>
               <li>Pro: 모든 기능, 무제한 이용 (월 9,900원)</li>
             </ul>
           </section>

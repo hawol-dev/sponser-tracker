@@ -7,8 +7,8 @@ export default async function NewDealPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold">새 딜 추가</h1>
-        <p className="text-muted-foreground">새로운 스폰서십 딜을 등록하세요</p>
+        <h1 className="text-2xl font-bold">새 협찬 추가</h1>
+        <p className="text-muted-foreground">새로운 스폰서십 협찬을 등록하세요</p>
       </div>
 
       <div className="max-w-2xl">

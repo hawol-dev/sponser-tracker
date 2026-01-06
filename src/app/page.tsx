@@ -290,10 +290,10 @@ export default function Home() {
               <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight" style={{ fontFamily: "Georgia, serif" }}>
                 한눈에 보는
                 <br />
-                <span className="text-cyan-400">딜 관리</span>
+                <span className="text-cyan-400">협찬 관리</span>
               </h2>
               <p className="text-zinc-400 text-lg leading-relaxed mb-8">
-                드래그 앤 드롭으로 딜 상태를 직관적으로 관리하세요.
+                드래그 앤 드롭으로 협찬 상태를 직관적으로 관리하세요.
                 피칭부터 결제까지 모든 단계를 시각화합니다.
               </p>
               <Link href="/signup" className="text-cyan-400 hover:text-cyan-300 flex items-center gap-2 text-sm font-medium cursor-pointer">
@@ -402,7 +402,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-3 gap-x-12 gap-y-12">
             {[
-              { icon: LayoutDashboard, title: "칸반 보드", desc: "드래그 앤 드롭으로 딜 상태를 직관적으로 관리" },
+              { icon: LayoutDashboard, title: "칸반 보드", desc: "드래그 앤 드롭으로 협찬 상태를 직관적으로 관리" },
               { icon: Bell, title: "마감일 알림", desc: "중요한 마감일 3일 전 이메일로 알려드립니다" },
               { icon: TrendingUp, title: "수익 분석", desc: "월별, 브랜드별 수익을 차트로 한눈에" },
               { icon: Users, title: "브랜드 CRM", desc: "담당자 연락처와 협업 히스토리 관리" },
@@ -457,7 +457,7 @@ export default function Home() {
                   ₩0<span className="text-base font-normal text-zinc-500">/월</span>
                 </div>
                 <ul className="space-y-3">
-                  {["딜 10개까지", "브랜드 5개까지", "칸반 보드", "기본 분석"].map((f) => (
+                  {["협찬 10개까지", "브랜드 5개까지", "칸반 보드", "기본 분석"].map((f) => (
                     <li key={f} className="flex items-center gap-3 text-sm text-zinc-300">
                       <CheckCircle2 className="w-4 h-4 text-zinc-500" />
                       {f}
@@ -490,7 +490,7 @@ export default function Home() {
                   ₩9,900<span className="text-base font-normal text-zinc-500">/월</span>
                 </div>
                 <ul className="space-y-3">
-                  {["딜 무제한", "브랜드 무제한", "마감일 이메일 알림", "상세 수익 분석", "데이터 내보내기", "우선 지원"].map((f) => (
+                  {["협찬 무제한", "브랜드 무제한", "마감일 이메일 알림", "상세 수익 분석", "데이터 내보내기", "우선 지원"].map((f) => (
                     <li key={f} className="flex items-center gap-3 text-sm text-zinc-300">
                       <CheckCircle2 className="w-4 h-4 text-cyan-400" />
                       {f}

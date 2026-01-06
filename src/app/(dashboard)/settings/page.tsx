@@ -192,7 +192,7 @@ export default function SettingsPage() {
                 </li>
                 <li className="flex items-center gap-2 text-muted-foreground">
                   <CheckCircle2 className="w-4 h-4 text-cyan-400" />
-                  딜 20개 관리
+                  협찬 20개 관리
                 </li>
                 <li className="flex items-center gap-2 text-muted-foreground">
                   <CheckCircle2 className="w-4 h-4 text-cyan-400" />
@@ -206,7 +206,7 @@ export default function SettingsPage() {
                 <div>
                   <p className="font-medium text-cyan-400">Pro 플랜</p>
                   <p className="text-sm text-muted-foreground mt-1">
-                    무제한 브랜드 & 딜, 고급 분석
+                    무제한 브랜드 & 협찬, 고급 분석
                   </p>
                 </div>
                 <p className="text-2xl font-bold">₩9,900<span className="text-sm font-normal text-muted-foreground">/월</span></p>

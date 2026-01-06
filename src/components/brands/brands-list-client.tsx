@@ -62,7 +62,7 @@ export function BrandsListClient({
       <EmptyState
         icon={EmptyStateIcons.brands}
         title="아직 등록된 브랜드가 없습니다"
-        description="협업하는 브랜드를 등록하면 딜 생성 시 빠르게 연결할 수 있어요."
+        description="협업하는 브랜드를 등록하면 협찬 생성 시 빠르게 연결할 수 있어요."
         action={{
           label: "첫 브랜드 추가",
           href: "/brands/new",

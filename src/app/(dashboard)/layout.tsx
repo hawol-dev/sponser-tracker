@@ -4,6 +4,7 @@ import { MobileNav } from "@/components/layout/mobile-nav";
 import { MobileFAB } from "@/components/layout/mobile-fab";
 import { HelpButton } from "@/components/help-button";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { OnboardingWrapper } from "@/components/onboarding/onboarding-wrapper";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 
@@ -37,6 +38,7 @@ export default async function DashboardLayout({
       </main>
       <MobileNav />
       <MobileFAB />
+      <OnboardingWrapper />
     </SidebarProvider>
   );
 }

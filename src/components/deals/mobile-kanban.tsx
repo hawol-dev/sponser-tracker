@@ -148,7 +148,7 @@ export function MobileKanban({ deals: initialDeals, onDealsChange }: MobileKanba
       <div ref={containerRef} className="space-y-3">
         {statusDeals.length === 0 ? (
           <div className="text-center py-12 text-muted-foreground">
-            <p>{DEAL_STATUS_LABELS[currentStatus]} 상태의 딜이 없습니다</p>
+            <p>{DEAL_STATUS_LABELS[currentStatus]} 상태의 협찬이 없습니다</p>
           </div>
         ) : (
           statusDeals.map((deal) => (

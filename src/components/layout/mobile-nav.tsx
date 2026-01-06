@@ -28,7 +28,7 @@ const navItems = [
     ),
   },
   {
-    title: "딜",
+    title: "협찬",
     href: "/deals",
     icon: (
       <svg

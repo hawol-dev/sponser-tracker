@@ -43,7 +43,7 @@ export default async function EditDealPage({ params }: EditDealPageProps) {
           </Button>
         </Link>
         <div>
-          <h1 className="text-2xl font-bold">딜 수정</h1>
+          <h1 className="text-2xl font-bold">협찬 수정</h1>
           <p className="text-muted-foreground">{deal.title} 정보를 수정하세요</p>
         </div>
       </div>

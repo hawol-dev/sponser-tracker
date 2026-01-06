@@ -45,7 +45,7 @@ const CustomTooltip = ({ active, payload }: any) => {
           수익: {data.revenue.toLocaleString()}원
         </p>
         <p className="text-zinc-400 text-sm">
-          딜 수: {data.count}건
+          협찬 수: {data.count}건
         </p>
       </div>
     );

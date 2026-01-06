@@ -57,7 +57,7 @@ export async function sendDeadlineReminder({
     </div>
 
     <a href="${dealUrl}" style="display: inline-block; background: #667eea; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600;">
-      딜 확인하기 →
+      협찬 확인하기 →
     </a>
 
     <p style="margin-top: 30px; font-size: 14px; color: #888;">
@@ -118,7 +118,7 @@ export async function sendStatusUpdateEmail({
 </head>
 <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
   <div style="background: #10b981; padding: 30px; border-radius: 12px 12px 0 0;">
-    <h1 style="color: white; margin: 0; font-size: 24px;">✅ 딜 상태 변경</h1>
+    <h1 style="color: white; margin: 0; font-size: 24px;">✅ 협찬 상태 변경</h1>
   </div>
 
   <div style="background: #f8f9fa; padding: 30px; border-radius: 0 0 12px 12px;">
@@ -135,7 +135,7 @@ export async function sendStatusUpdateEmail({
     </div>
 
     <a href="${dealUrl}" style="display: inline-block; background: #10b981; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none;">
-      딜 확인하기
+      협찬 확인하기
     </a>
   </div>
 </body>

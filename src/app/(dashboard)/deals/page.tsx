@@ -24,8 +24,8 @@ export default async function DealsPage({ searchParams }: DealsPageProps) {
     <div className="space-y-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold">딜 관리</h1>
-          <p className="text-muted-foreground">스폰서십 딜을 관리하세요</p>
+          <h1 className="text-2xl font-bold">협찬 관리</h1>
+          <p className="text-muted-foreground">스폰서십 협찬을 관리하세요</p>
         </div>
         <Link href="/deals/new">
           <Button>
@@ -44,7 +44,7 @@ export default async function DealsPage({ searchParams }: DealsPageProps) {
               <path d="M5 12h14" />
               <path d="M12 5v14" />
             </svg>
-            새 딜 추가
+            새 협찬 추가
           </Button>
         </Link>
       </div>
@@ -95,10 +95,10 @@ async function DealsKanbanWrapper({ search, status, brandId }: DealsKanbanWrappe
     return (
       <EmptyState
         icon={EmptyStateIcons.deals}
-        title="아직 등록된 딜이 없습니다"
-        description="첫 스폰서십 딜을 만들어 수익을 추적하세요. 칸반 보드로 진행 상태를 한눈에 관리할 수 있습니다."
+        title="아직 등록된 협찬이 없습니다"
+        description="첫 스폰서십 협찬을 만들어 수익을 추적하세요. 칸반 보드로 진행 상태를 한눈에 관리할 수 있습니다."
         action={{
-          label: "첫 딜 만들기",
+          label: "첫 협찬 만들기",
           href: "/deals/new",
         }}
         secondaryAction={{

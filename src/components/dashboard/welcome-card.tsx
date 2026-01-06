@@ -39,8 +39,8 @@ const steps = [
   },
   {
     step: 2,
-    title: "딜 생성",
-    description: "첫 스폰서십 딜을 만드세요",
+    title: "협찬 생성",
+    description: "첫 스폰서십 협찬을 만드세요",
     href: "/deals/new",
     icon: (
       <svg
@@ -200,7 +200,7 @@ export function WelcomeCard({ userName }: WelcomeCardProps) {
               <path d="M5 12h14" />
               <path d="M12 5v14" />
             </svg>
-            첫 딜 만들기
+            첫 협찬 만들기
           </Button>
         </Link>
       </div>

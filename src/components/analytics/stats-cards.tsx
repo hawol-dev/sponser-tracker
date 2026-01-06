@@ -20,7 +20,7 @@ export function StatsCards({ summary }: StatsCardsProps) {
     {
       title: "총 수익",
       value: formatAmount(summary.totalRevenue) + "원",
-      description: `총 ${summary.totalDeals}건의 딜`,
+      description: `총 ${summary.totalDeals}건의 협찬`,
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -83,9 +83,9 @@ export function StatsCards({ summary }: StatsCardsProps) {
       ),
     },
     {
-      title: "평균 딜 규모",
+      title: "평균 협찬 규모",
       value: formatAmount(summary.avgDealSize) + "원",
-      description: "딜당 평균 금액",
+      description: "협찬당 평균 금액",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"

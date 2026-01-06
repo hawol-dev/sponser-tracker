@@ -20,7 +20,7 @@ export function MobileFAB() {
 
   const actions = [
     {
-      label: "새 딜",
+      label: "새 협찬",
       href: "/deals/new",
       icon: (
         <svg

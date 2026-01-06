@@ -49,7 +49,7 @@ const menuItems = [
     ),
   },
   {
-    title: "딜 관리",
+    title: "협찬 관리",
     url: "/deals",
     icon: (
       <svg

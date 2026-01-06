@@ -49,7 +49,7 @@ export function DealForm({ deal, brands }: DealFormProps) {
 
     switch (name) {
       case "title":
-        error = validateRequired(value, "딜 제목");
+        error = validateRequired(value, "협찬 제목");
         break;
       case "amount":
         error = validateAmount(parseFloat(value) || 0);
@@ -88,7 +88,7 @@ export function DealForm({ deal, brands }: DealFormProps) {
 
     // Validate all fields
     const errors: FormErrors = {};
-    const titleError = validateRequired(data.title, "딜 제목");
+    const titleError = validateRequired(data.title, "협찬 제목");
     if (titleError) errors.title = titleError;
     const amountError = validateAmount(data.amount);
     if (amountError) errors.amount = amountError;
@@ -119,7 +119,7 @@ export function DealForm({ deal, brands }: DealFormProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{isEditing ? "딜 수정" : "새 딜 추가"}</CardTitle>
+        <CardTitle>{isEditing ? "협찬 수정" : "새 협찬 추가"}</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -132,7 +132,7 @@ export function DealForm({ deal, brands }: DealFormProps) {
           {/* 기본 정보 */}
           <div className="space-y-4">
             <FormField
-              label="딜 제목"
+              label="협찬 제목"
               name="title"
               defaultValue={deal?.title}
               placeholder="예: 2024 겨울 캠페인 협찬"
@@ -161,7 +161,7 @@ export function DealForm({ deal, brands }: DealFormProps) {
                 </Select>
               </FormSelectWrapper>
 
-              <FormSelectWrapper label="상태" hint="현재 딜 진행 상태">
+              <FormSelectWrapper label="상태" hint="현재 협찬 진행 상태">
                 <Select name="status" defaultValue={deal?.status || "pitching"}>
                   <SelectTrigger>
                     <SelectValue placeholder="상태 선택" />
@@ -264,7 +264,7 @@ export function DealForm({ deal, brands }: DealFormProps) {
             label="메모"
             name="notes"
             defaultValue={deal?.notes || ""}
-            placeholder="딜 관련 메모를 입력하세요..."
+            placeholder="협찬 관련 메모를 입력하세요..."
             rows={4}
             showCount
             maxLength={1000}

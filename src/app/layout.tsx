@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Sponsor Tracker - 스폰서십 관리 플랫폼",
-  description: "크리에이터를 위한 스폰서십 & 브랜드 딜 관리 도구",
+  description: "크리에이터를 위한 스폰서십 & 브랜드 협찬 관리 도구",
 };
 
 export default function RootLayout({

@@ -53,7 +53,7 @@ async function DashboardContent() {
           <UpcomingDeadlines />
         </Suspense>
 
-        <Suspense fallback={<CardLoading title="최근 딜" />}>
+        <Suspense fallback={<CardLoading title="최근 협찬" />}>
           <RecentDeals />
         </Suspense>
       </div>
@@ -98,9 +98,9 @@ async function DashboardStats() {
 
   const stats = [
     { label: "이번 달 수익", value: formatAmount(thisMonthRevenue) },
-    { label: "진행 중인 딜", value: String(activeDeals) },
+    { label: "진행 중인 협찬", value: String(activeDeals) },
     { label: "협업 브랜드", value: String(brands.length) },
-    { label: "완료된 딜", value: String(completedDeals) },
+    { label: "완료된 협찬", value: String(completedDeals) },
   ];
 
   return (
@@ -171,7 +171,7 @@ async function UpcomingDeadlines() {
           </svg>
           곧 마감
         </CardTitle>
-        <CardDescription>7일 이내 마감되는 딜</CardDescription>
+        <CardDescription>7일 이내 마감되는 협찬</CardDescription>
       </CardHeader>
       <CardContent>
         {deals && deals.length > 0 ? (
@@ -199,7 +199,7 @@ async function UpcomingDeadlines() {
           </div>
         ) : (
           <p className="text-muted-foreground text-center py-4">
-            7일 이내 마감되는 딜이 없습니다
+            7일 이내 마감되는 협찬이 없습니다
           </p>
         )}
       </CardContent>
@@ -236,8 +236,8 @@ async function RecentDeals() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>최근 딜</CardTitle>
-        <CardDescription>최근 업데이트된 딜</CardDescription>
+        <CardTitle>최근 협찬</CardTitle>
+        <CardDescription>최근 업데이트된 협찬</CardDescription>
       </CardHeader>
       <CardContent>
         {deals && deals.length > 0 ? (
@@ -267,7 +267,7 @@ async function RecentDeals() {
           </div>
         ) : (
           <p className="text-muted-foreground text-center py-4">
-            아직 등록된 딜이 없습니다
+            아직 등록된 협찬이 없습니다
           </p>
         )}
       </CardContent>

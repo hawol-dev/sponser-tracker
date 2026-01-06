@@ -37,9 +37,9 @@ export function DeleteDealButton({ dealId, dealTitle }: DeleteDealButtonProps) {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>딜 삭제</AlertDialogTitle>
+          <AlertDialogTitle>협찬 삭제</AlertDialogTitle>
           <AlertDialogDescription>
-            &apos;{dealTitle}&apos; 딜을 정말 삭제하시겠습니까?
+            &apos;{dealTitle}&apos; 협찬을 정말 삭제하시겠습니까?
             <br />
             이 작업은 되돌릴 수 없습니다.
           </AlertDialogDescription>

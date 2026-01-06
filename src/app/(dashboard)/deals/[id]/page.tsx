@@ -163,12 +163,9 @@ export default async function DealDetailPage({ params }: DealDetailPageProps) {
                   {CATEGORY_LABELS[deal.brand.category]}
                 </p>
                 {deal.brand.contact_email && (
-                  <a
-                    href={`mailto:${deal.brand.contact_email}`}
-                    className="text-sm text-primary hover:underline"
-                  >
+                  <p className="text-sm text-muted-foreground">
                     {deal.brand.contact_email}
-                  </a>
+                  </p>
                 )}
               </div>
               <Link href={`/brands/${deal.brand.id}`}>
